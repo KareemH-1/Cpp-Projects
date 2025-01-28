@@ -21,12 +21,11 @@ void way3 (int a, int b){
     cout << "a: " << a << " b: " << b << endl;
 }
 
-int main{
+int main () {
     int a, b;
     cout << "Enter two numbers: ";
     cin >> a >> b;
     way1(a, b);
     way2(a, b);
     way3(a, b);
-    return 0;
 }
