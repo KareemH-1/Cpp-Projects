@@ -22,7 +22,9 @@ void display(char y[]){
 int main (){
     char x[600];
     char y[600];
+    cout<<"Enter the string : ";
     gets(x);
     reverse_copy(x,y);
+    cout<<"The reverse of the string is : ";
     display(y);
 }
