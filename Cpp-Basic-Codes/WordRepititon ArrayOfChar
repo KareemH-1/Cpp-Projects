@@ -1,0 +1,54 @@
+#include <iostream>
+using namespace std;
+
+int countrep(char arr[], char y[]) {
+    int count = 0;
+    int arraylength = 0;
+
+    
+    for (int i = 0; arr[i] != '\0'; i++) {
+        arraylength++;
+    }
+
+    int lengthword = 0;
+
+  
+    for (int i = 0; y[i] != '\0'; i++) {
+        lengthword++;
+    }
+
+    for (int i = 0; i < arraylength; i++) {
+       
+        if (i == 0 || arr[i - 1] == ' ') {
+            int j = 0;
+            int start = i;
+
+            
+            while (arr[i] == y[j] && y[j] != '\0') {
+                i++;
+                j++;
+            }
+
+           
+            if (j == lengthword && (arr[i] == ' ' || arr[i] == '\0')) {
+                count++;
+            }
+
+            i = start;
+        }
+    }
+
+    return count;
+}
+
+int main() {
+    char arr[500];
+    cout << "Please enter the values for the array: ";
+    cin.getline(arr, 500);
+
+    char y[100];
+    cout << "Please enter the word to search for its repetition: ";
+    cin.getline(y, 100);
+
+    cout << "The word is repeated " << countrep(arr, y) << " times." << endl;
+}
