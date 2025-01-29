@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "ostream": "cpp",
-        "basic_calculator": "cpp"
+        "basic_calculator": "cpp",
+        "wordrepititon arrayofchar": "cpp"
     }
 }
