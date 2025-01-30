@@ -10,3 +10,10 @@ int factorial(int n) {
         }
     }
 }
+
+int main() {
+    int n;
+    cout << "Enter a number: ";
+    cin >> n;
+    cout << "Factorial of the number " << n << " is " << factorial(n);
+}
