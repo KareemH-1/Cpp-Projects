@@ -12,3 +12,14 @@ bool isPrime(int n) {
     }
     return (true);
 }
+
+int main() {
+    int n;
+    cout << "Enter a number: ";
+    cin >> n;
+    if(isPrime(n) == true) {
+        cout << n << " is a prime number";
+    } else {
+        cout << n << " is not a prime number";
+    }
+}
