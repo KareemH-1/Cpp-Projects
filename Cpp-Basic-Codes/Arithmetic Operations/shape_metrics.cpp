@@ -1,8 +1,7 @@
 // Geometric Calculator  
 // This program allows users to compute the area and perimeter of various shapes.  
 // Users select a shape, provide necessary dimensions, and receive calculated results.  
-// Supported shapes include circles, rectangles, and triangles.  
-
+// Supported shapes include circles, rectangles, and triangles.
 
 #include <iostream>
 #include <string>
@@ -60,6 +59,36 @@ void trapezium(float a, float b, float height, float &Area, float &Per) {
     Per = a + b + height + sqrt(height * height + (b - a) * (b - a));  // Perimeter = sum of sides
 }
 
+// Function for ellipse
+void ellipse(float a, float b, float &Area, float &Per) {
+    Area = 3.14159265359 * a * b;  // Area = π * a * b
+    Per = 2 * 3.14159265359 * sqrt((a * a + b * b) / 2);  // Approximate Perimeter of ellipse
+}
+
+// Function for semi-circle
+void semicircle(float radius, float &Area, float &Per) {
+    Area = (3.14159265359 * radius * radius) / 2;  // Area = π * r^2 / 2
+    Per = 3.14159265359 * radius + 2 * radius;     // Perimeter = π * r + 2 * r (straight edge + curved edge)
+}
+
+// Function for pentagon (regular)
+void pentagon(float s, float &Area, float &Per) {
+    Area = (5 * s * s) / (4 * tan(3.14159265359 / 5));  // Area of regular pentagon
+    Per = 5 * s;  // Perimeter = 5 * side length
+}
+
+// Function for hexagon (regular)
+void hexagon(float s, float &Area, float &Per) {
+    Area = (3 * sqrt(3) * s * s) / 2;  // Area of regular hexagon
+    Per = 6 * s;  // Perimeter = 6 * side length
+}
+
+// Function for octagon (regular)
+void octagon(float s, float &Area, float &Per) {
+    Area = 2 * (1 + sqrt(2)) * s * s;  // Area of regular octagon
+    Per = 8 * s;  // Perimeter = 8 * side length
+}
+
 int main() {
     cout << "===================================" << endl;
     cout << "     SHAPE METRICS CALCULATOR      " << endl;
@@ -87,9 +116,15 @@ int main() {
             cout << "   6. Rhombus" << endl;
             cout << "   7. Parallelogram" << endl;
             cout << "   8. Trapezium" << endl;
+            cout << "   9. Ellipse" << endl;
+            cout << "   10. Semi-Circle" << endl;
+            cout << "   11. Pentagon (Regular)" << endl;
+            cout << "   12. Hexagon (Regular)" << endl;
+            cout << "   13. Octagon (Regular)" << endl;
             cout << "=============================================" << endl;
-
+            cout << "Choose a shape from the previous table: ";
             cin >> shape;
+
 
             if (shape == "Square" || shape == "square" || shape == "1" || shape == "sq" || shape == "Square Shape" || shape == "s") {
                 float L;
@@ -189,6 +224,60 @@ int main() {
                 cout << "Area of trapezium equals " << area << endl;
                 cout << "Perimeter of trapezium equals " << per << endl << endl;
             }
+
+              else if (shape == "ellipse" || shape == "Ellipse" || shape == "9" || shape == "elipse" || shape == "elliptical") {
+                float a, b;
+                cout << "Enter the semi-major axis of the ellipse: ";
+                cin >> a;
+                cout << "Enter the semi-minor axis of the ellipse: ";
+                cin >> b;
+                ellipse(a, b, area, per);
+                cout << "-------------------------------------------" << endl;
+                cout << "Area of ellipse equals " << area << endl;
+                cout << "Perimeter of ellipse equals " << per << endl << endl;
+            }
+
+            else if (shape == "semi-circle" || shape == "Semi-circle" || shape == "10" || shape == "semi circle") {
+                float radius;
+                cout << "Enter the radius of the semi-circle: ";
+                cin >> radius;
+                semicircle(radius, area, per);
+                cout << "-------------------------------------------" << endl;
+                cout << "Area of semi-circle equals " << area << endl;
+                cout << "Perimeter of semi-circle equals " << per << endl << endl;
+            }
+
+            else if (shape == "pentagon" || shape == "Pentagon" || shape == "11" || shape == "penta" || shape == "regular pentagon") {
+                float s;
+                cout << "Enter the side length of the pentagon: ";
+                cin >> s;
+                pentagon(s, area, per);
+                cout << "-------------------------------------------" << endl;
+                cout << "Area of pentagon equals " << area << endl;
+                cout << "Perimeter of pentagon equals " << per << endl << endl;
+            }
+
+              else if (shape == "hexagon" || shape == "Hexagon" || shape == "12" || shape == "hexa" || shape == "regular hexagon") {
+                float s;
+                cout << "Enter the side length of the hexagon: ";
+                cin >> s;
+                hexagon(s, area, per);
+                cout << "-------------------------------------------" << endl;
+                cout << "Area of hexagon equals " << area << endl;
+                cout << "Perimeter of hexagon equals " << per << endl << endl;
+            }
+
+            else if (shape == "octagon" || shape == "Octagon" || shape == "13" || shape == "octa" || shape == "regular octagon") {
+                float s;
+                cout << "Enter the side length of the octagon: ";
+                cin >> s;
+                octagon(s, area, per);
+                cout << "-------------------------------------------" << endl;
+                cout << "Area of octagon equals " << area << endl;
+                cout << "Perimeter of octagon equals " << per << endl << endl;
+            }
+
+
             else {
                 cout << "Invalid choice , try again." << endl;
             }
