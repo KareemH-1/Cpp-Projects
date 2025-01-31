@@ -28,6 +28,12 @@ void rightangletriangle(int base, int height, int &Area, int &Per) {
     int hypotenuse = sqrt(base * base + height * height);
     Per = base + height + hypotenuse;
 }
+// Function for normal triangle (equilateral)
+void normalTriangle(int base, int height, int &Area, int &Per) {
+    Area = (base * height) / 2;
+    // Perimeter of an equilateral triangle: 3 * base
+    Per = 3 * base;
+}
 
 
 int main(){
@@ -52,6 +58,7 @@ int main(){
               cout << "   1. Square" << endl;
               cout << "   2. Rectangle" << endl;
               cout << "   3. Right-Angled Triangle" << endl;
+              cout << "   4. equilateral Triangle" << endl;
               cout << "=============================================" << endl;
 
               cin >>shape;
@@ -92,6 +99,17 @@ int main(){
                     cout << "-------------------------------------------" << endl;
                     cout << "Area of right-angled triangle equals " << area << endl;
                     cout << "Perimeter of right-angled triangle equals " << per << endl << endl;
+            }
+
+              else if (shape == "equilateral triangle" || shape == "Equilateral triangle" || shape == "triangle" || shape == "Triangle" ||shape == "Equilateral" || shape == "equilateral") {
+                int base, height;
+                cout << "Enter the base of the normal triangle: ";
+                cin >> base;
+                cout << "Enter the height of the normal triangle: ";
+                cin >> height;
+                normalTriangle(base, height, area, per);
+                cout << "Area of equilateral triangle equals " << area << endl;
+                cout << "Perimeter of equilateral triangle equals " << per << endl << endl;
             }
 
         }
