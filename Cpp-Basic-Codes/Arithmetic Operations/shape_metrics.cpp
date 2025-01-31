@@ -1,3 +1,8 @@
+// Geometric Calculator  
+// This program allows users to compute the area and perimeter of various shapes.  
+// Users select a shape, provide necessary dimensions, and receive calculated results.  
+// Supported shapes include circles, rectangles, and triangles.  
+
 #include <iostream>
 #include <string>
 #include <cmath>
