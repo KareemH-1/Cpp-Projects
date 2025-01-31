@@ -89,6 +89,44 @@ void octagon(float s, float &Area, float &Per) {
     Per = 8 * s;  // Perimeter = 8 * side length
 }
 
+
+// Function for sector of a circle
+void sectorOfCircle(float radius, float angle, float &Area, float &Per) {
+    Area = (3.14159265359 * radius * radius * angle) / 360;  // Area = π * r^2 * (angle / 360)
+    Per = 2 * radius + 2 * (3.14159265359 * radius * angle) / 360;  // Perimeter = 2r + arc length
+}
+
+// Function for lune (area between two intersecting circles)
+void lune(float radius1, float radius2, float angle, float &Area, float &Per) {
+    Area = (3.14159265359 * radius1 * radius1 * angle / 360) - (3.14159265359 * radius2 * radius2 * angle / 360);  // Lune area formula
+    Per = 2 * (3.14159265359 * radius1 * angle / 360);  // Perimeter is approximately the arc length
+}
+
+// Function for heart shape
+void heartShape(float a, float &Area, float &Per) {
+    Area = 3.14159265359 * a * a * (16 / 15);  // Approximate formula for heart-shaped area
+    Per = 2 * 3.14159265359 * a;  // Perimeter approximation
+}
+
+// Function for kite
+void kite(float d1, float d2, float side, float &Area, float &Per) {
+    Area = (d1 * d2) / 2;  // Area of kite = (Diagonal1 * Diagonal2) / 2
+    Per = 2 * (side + side);  // Perimeter = 2 * (side1 + side2)
+}
+
+// Function for annulus (area between two concentric circles)
+void annulus(float radius1, float radius2, float &Area, float &Per) {
+    Area = 3.14159265359 * (radius1 * radius1 - radius2 * radius2);  // Area of annulus
+    Per = 2 * 3.14159265359 * (radius1 + radius2);  // Perimeter = circumference of both circles
+}
+
+// Function for parabola
+void parabola(float a, float b, float &Area, float &Per) {
+    // Simplified area of parabola using integral approximation
+    Area = (1 / 3.0) * a * b * b;  // Approximation for the area under a parabola y = ax^2
+    Per = 2 * sqrt(a * b);  // Approximation for perimeter formula (non-standard, for approximation purposes)
+}
+
 int main() {
     cout << "===================================" << endl;
     cout << "     SHAPE METRICS CALCULATOR      " << endl;
@@ -121,10 +159,15 @@ int main() {
             cout << "   11. Pentagon (Regular)" << endl;
             cout << "   12. Hexagon (Regular)" << endl;
             cout << "   13. Octagon (Regular)" << endl;
+            cout << "   14. Sector of Circle" << endl;
+            cout << "   15. Lune" << endl;
+            cout << "   16. Heart Shape" << endl;
+            cout << "   17. Kite" << endl;
+            cout << "   18. Annulus" << endl;
+            cout << "   19. Parabola" << endl;
             cout << "=============================================" << endl;
             cout << "Choose a shape from the previous table: ";
             cin >> shape;
-
 
             if (shape == "Square" || shape == "square" || shape == "1" || shape == "sq" || shape == "Square Shape" || shape == "s") {
                 float L;
@@ -276,6 +319,82 @@ int main() {
                 cout << "Area of octagon equals " << area << endl;
                 cout << "Perimeter of octagon equals " << per << endl << endl;
             }
+            
+
+             else if (shape == "sector of circle" || shape == "Sector of Circle" || shape == "14" || shape == "sector" || shape == "Sector") {
+                float radius, angle;
+                cout << "Enter the radius of the circle: ";
+                cin >> radius;
+                cout << "Enter the central angle (in degrees): ";
+                cin >> angle;
+                sectorOfCircle(radius, angle, area, per);
+                cout << "-------------------------------------------" << endl;
+                cout << "Area of sector equals " << area << endl;
+                cout << "Perimeter of sector equals " << per << endl << endl;
+            }
+
+            else if (shape == "lune" || shape == "Lune" || shape == "15") {
+                float radius1, radius2, angle;
+                cout << "Enter the radius of the first circle: ";
+                cin >> radius1;
+                cout << "Enter the radius of the second circle: ";
+                cin >> radius2;
+                cout << "Enter the angle (in degrees): ";
+                cin >> angle;
+                lune(radius1, radius2, angle, area, per);
+                cout << "-------------------------------------------" << endl;
+                cout << "Area of lune equals " << area << endl;
+                cout << "Perimeter of lune equals " << per << endl << endl;
+            }
+
+            else if (shape == "heart shape" || shape == "Heart Shape" || shape == "16" || shape == "Heart" || shape == "heart") {
+                float a;
+                cout << "Enter the size parameter for the heart shape: ";
+                cin >> a;
+                heartShape(a, area, per);
+                cout << "-------------------------------------------" << endl;
+                cout << "Area of heart shape equals " << area << endl;
+                cout << "Perimeter of heart shape equals " << per << endl << endl;
+            }
+
+            else if (shape == "kite" || shape == "Kite" || shape == "17") {
+                float d1, d2, side;
+                cout << "Enter the first diagonal of the kite: ";
+                cin >> d1;
+                cout << "Enter the second diagonal of the kite: ";
+                cin >> d2;
+                cout << "Enter the length of the side of the kite: ";
+                cin >> side;
+                kite(d1, d2, side, area, per);
+                cout << "-------------------------------------------" << endl;
+                cout << "Area of kite equals " << area << endl;
+                cout << "Perimeter of kite equals " << per << endl << endl;
+            }
+
+            else if (shape == "annulus" || shape == "Annulus" || shape == "18") {
+                float radius1, radius2;
+                cout << "Enter the outer radius of the annulus: ";
+                cin >> radius1;
+                cout << "Enter the inner radius of the annulus: ";
+                cin >> radius2;
+                annulus(radius1, radius2, area, per);
+                cout << "-------------------------------------------" << endl;
+                cout << "Area of annulus equals " << area << endl;
+                cout << "Perimeter of annulus equals " << per << endl << endl;
+            }
+
+            else if (shape == "parabola" || shape == "Parabola" || shape == "19") {
+                float a, b;
+                cout << "Enter the coefficient a for the parabola: ";
+                cin >> a;
+                cout << "Enter the coefficient b for the parabola: ";
+                cin >> b;
+                parabola(a, b, area, per);
+                cout << "-------------------------------------------" << endl;
+                cout << "Area under parabola equals " << area << endl;
+                cout << "Perimeter of parabola equals " << per << endl << endl;
+            }
+
 
 
             else {
