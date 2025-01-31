@@ -7,9 +7,16 @@
 #include <string>
 using namespace std;
 
-void square(int L , int & Area , int & Per){
-    Area = L*L;
-    Per = L*4;
+// Function for square
+void square(int L, int &Area, int &Per) {
+    Area = L * L;
+    Per = L * 4;
+}
+
+// Function for rectangle
+void rectangle(int L, int W, int &Area, int &Per) {
+    Area = L * W;
+    Per = 2 * (L + W);
 }
 
 
@@ -48,6 +55,17 @@ int main(){
                 cout << "Area of square equals " << area <<endl; 
                 cout << "Perimeter of square equals " << per<<endl <<endl;
               }
+                else if (shape == "rectangle" || shape == "Rectangle") {
+                     int L, W;
+                     cout << "Enter the length of the rectangle: ";
+                     cin >> L;
+                     cout << "Enter the width of the rectangle: ";
+                     cin >> W;
+                     rectangle(L, W, area, per);
+                     cout << "-------------------------------------------" << endl;
+                     cout << "Area of rectangle equals " << area << endl;
+                     cout << "Perimeter of rectangle equals " << per << endl << endl;
+            }
 
         }
         else{
