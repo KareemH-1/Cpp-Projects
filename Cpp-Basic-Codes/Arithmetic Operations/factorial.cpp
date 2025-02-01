@@ -2,18 +2,16 @@
 using namespace std;
 
 int factorial(int n) {
-    if(n == 0) {
-        return (1);
-    } else {
-        for(int i = n - 1; i > 0; i--) {
-            n =n * i;
-        }
+    int result = 1;
+    for (int i = n; i > 0; i--) {
+        result *= i; 
     }
+    return result; 
 }
 
 int main() {
     int n;
     cout << "Enter a number: ";
     cin >> n;
-    cout << "Factorial of the number " << n << " is " << factorial(n);
+    cout << "Factorial of the number " << n << " is " << factorial(n) << endl;
 }

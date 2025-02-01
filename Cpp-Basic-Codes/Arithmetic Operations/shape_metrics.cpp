@@ -44,8 +44,9 @@ void circle(float radius, float &Area, float &Per) {
 // Function for rhombus
 void rhombus(float d1, float d2, float &Area, float &Per) {
     Area = (d1 * d2) / 2;  // Area = (Diagonal1 * Diagonal2) / 2
-    Per = 4 * d1;           // Perimeter = 4 * side length (assuming all sides are equal)
+    Per = 4 * sqrt((d1 / 2) * (d1 / 2) + (d2 / 2) * (d2 / 2));  // Perimeter = 4 * side length (calculated from diagonals)
 }
+
 
 // Function for parallelogram
 void parallelogram(float base, float height, float &Area, float &Per) {
@@ -62,7 +63,7 @@ void trapezium(float a, float b, float height, float &Area, float &Per) {
 // Function for ellipse
 void ellipse(float a, float b, float &Area, float &Per) {
     Area = 3.14159265359 * a * b;  // Area = π * a * b
-    Per = 2 * 3.14159265359 * sqrt((a * a + b * b) / 2);  // Approximate Perimeter of ellipse
+    Per = 3.14159265359 * (3 * (a + b) - sqrt((3 *a + b) * (a + 3*b)));
 }
 
 // Function for semi-circle
@@ -98,9 +99,10 @@ void sectorOfCircle(float radius, float angle, float &Area, float &Per) {
 
 // Function for lune (area between two intersecting circles)
 void lune(float radius1, float radius2, float angle, float &Area, float &Per) {
-    Area = (3.14159265359 * radius1 * radius1 * angle / 360) - (3.14159265359 * radius2 * radius2 * angle / 360);  // Lune area formula
+    Area = abs((3.14159265359 * radius1 * radius1 * angle / 360) - (3.14159265359 * radius2 * radius2 * angle / 360));  // Ensure non-negative area
     Per = 2 * (3.14159265359 * radius1 * angle / 360);  // Perimeter is approximately the arc length
 }
+
 
 // Function for heart shape
 void heartShape(float a, float &Area, float &Per) {
