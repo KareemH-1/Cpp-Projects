@@ -26,17 +26,23 @@ void guessNum(int seq, int &ctgood) {
 
 int main() {
     // Define the sequences used in the game
-    int seq[7][5] = {
-        {1, 5, 10, 16, 23},   // (+4) then (+5) then (+6)...(+n)
-        {0, 5, 10, 15, 20},   // Arithmetic sequence (+5)
-        {2, 4, 8, 16, 32},    // Geometric sequence (*2)
-        {1, 4, 9, 16, 25},    // Square numbers (n^2)
-        {400, 200, 100, 50, 25},  // Divide sequence (n/2)
-        {1, 1, 2, 3, 5},      // Fibonacci sequence
-        {2, 3, 5, 7, 11}      // Prime numbers
-    };
+    int seq[13][5] = {
+        {1, 5, 10, 16, 23},   //1. (+4) then (+5) then (+6)...(+n)
+        {0, 5, 10, 15, 20},   //2. Arithmetic sequence (+5)
+        {2, 4, 8, 16, 32},    //3. Geometric sequence (*2)
+        {1, 4, 9, 16, 25},    //4. Square numbers (n^2)
+        {400, 200, 100, 50, 25}, //5. Divide sequence (n/2)
+        {1, 1, 2, 3, 5},      //6. Fibonacci sequence
+        {2, 3, 5, 7, 11},     //7. Prime numbers
+        {3, 6, 9, 12, 15},    //8. Multiples of 3
+        {11, 22, 33, 44, 55}, //9. Multiples of 11
+         {5, 10, 20, 40, 80},  //10. Geometric sequence (*2)
+        {100, 95, 90, 85, 80},//11. Arithmetic sequence (-5)
+        {1, 8, 27, 64, 125},  //12. Cube numbers (n^3)
+        {13, 21, 34, 55, 89} //13. Fibonacci extended
+    }; 
 
-    int numrounds = 7;  // Total rounds in the game
+    int numrounds = 13;  // Total rounds in the game
     int i = 0, j = 0;
     
     // Display the game title
