@@ -26,23 +26,33 @@ void guessNum(int seq, int &ctgood) {
 
 int main() {
     // Define the sequences used in the game
-    int seq[13][5] = {
-        {1, 5, 10, 16, 23},   //1. (+4) then (+5) then (+6)...(+n)
-        {0, 5, 10, 15, 20},   //2. Arithmetic sequence (+5)
-        {2, 4, 8, 16, 32},    //3. Geometric sequence (*2)
-        {1, 4, 9, 16, 25},    //4. Square numbers (n^2)
-        {400, 200, 100, 50, 25}, //5. Divide sequence (n/2)
-        {1, 1, 2, 3, 5},      //6. Fibonacci sequence
-        {2, 3, 5, 7, 11},     //7. Prime numbers
-        {3, 6, 9, 12, 15},    //8. Multiples of 3
-        {11, 22, 33, 44, 55}, //9. Multiples of 11
-         {5, 10, 20, 40, 80},  //10. Geometric sequence (*2)
-        {100, 95, 90, 85, 80},//11. Arithmetic sequence (-5)
-        {1, 8, 27, 64, 125},  //12. Cube numbers (n^3)
-        {13, 21, 34, 55, 89} //13. Fibonacci extended
-    }; 
+    int seq[23][5] = {
+        {0, 5, 10, 15, 20},   // 1. Arithmetic sequence (+5)
+        {3, 6, 9, 12, 15},    // 2. Multiples of 3
+        {11, 22, 33, 44, 55}, // 3. Multiples of 11
+        {100, 95, 90, 85, 80},// 4. Arithmetic sequence (-5)
+        {5, 10, 20, 40, 80},  // 5. Geometric sequence (*2)
+        {2, 4, 8, 16, 32},    // 6. Geometric sequence (*2)
+        {1, 5, 10, 16, 23},   // 7. Increasing pattern (+4, +5, +6...)
+        {1, 4, 9, 16, 25},    // 8. Square numbers (n²)
+        {1, 8, 27, 64, 125},  // 9. Cube numbers (n³)
+        {2, 3, 5, 7, 11},     // 10. Prime numbers
+        {1, 1, 2, 3, 5},      // 11. Fibonacci sequence
+        {13, 21, 34, 55, 89}, // 12. Extended Fibonacci
+        {400, 200, 100, 50, 25}, // 13. Division pattern (n/2)
+        {1, 3, 7, 15, 31},    // 14. Powers of 2 minus 1 (2^n - 1)
+        {1, 2, 6, 24, 120},   // 15. Factorial (n!)
+        {81, 64, 49, 36, 25}, // 16. Reverse square numbers
+        {2, 4, 16, 256, 65536}, // 17. Exponential (n^n)
+        {121, 144, 169, 196, 225}, // 18. Consecutive squared numbers (11², 12²...)
+        {0, 1, 1, 2, 3},      // 19. Fibonacci shifted
+        {9, 17, 33, 65, 129}, // 20. Doubling and subtracting one (-1)
+        {4, 9, 25, 49, 121},  // 21. Prime squared numbers
+        {10, 20, 30, 50, 80}, // 22. Mixed arithmetic (+10, +10, +20, +30)
+        {7, 14, 28, 56, 112}  // 23. Doubling a multiple of 7
+    };
 
-    int numrounds = 13;  // Total rounds in the game
+    int numrounds = 23;  // Total rounds in the game
     int i = 0, j = 0;
     
     // Display the game title
