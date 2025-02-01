@@ -72,9 +72,9 @@ int main() {
     int i = 0, j = 0;
     
     // Display the game title
-    cout << "=======================================" << endl;
-    cout << "=======> Guess the number game <=======" << endl;
-    cout << "=======================================" << endl << endl;
+    cout << "======================================" << endl;
+    cout << "======> Guess the pattern game <======" << endl;
+    cout << "======================================" << endl << endl;
     
     string choice;
     int points = 0;
@@ -109,7 +109,7 @@ int main() {
             // Start the round
             cout << "---------------------------------------" << endl;
             cout << "Round " << whichround - 1 << endl;
-            cout << "Guess the number: " << endl;
+            cout << "Guess the Pattern: " << endl;
             cout << "-----------------" << endl;
             
             // Display the first four numbers in the sequence
