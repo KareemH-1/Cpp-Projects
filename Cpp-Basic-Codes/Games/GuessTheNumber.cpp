@@ -1,5 +1,5 @@
 #include <iostream>
-#include <ctime>
+#include <ctime> //used ctime library to use rand & srand functions to choose a number inbetween a range 
 #include <string>
 using namespace std;
 
@@ -19,7 +19,7 @@ int main() {
     cout << "With each correct guess, the difficulty increases!" << endl;
     cout << "Enter your guesses and receive hints until you get it right!" << endl;
     cout << "Type 'no' when asked to quit the game." << endl;
-    cout << "===========================================\n\n";
+    cout << "===========================================\n";
 
     string choice = "yes"; // Ensures the game starts
     int points = 0; // Tracks the player's score
