@@ -31,40 +31,41 @@ double convertToGradePoint(double percentage) {
     else if (percentage >= 50) {
         return (1.0);
     }
+    else{
+        return(0); //failing grade
+    }
 }
 
 int main() {
-    int numSubjects;
+    int numSubjects;  
     cout << "Enter number of subjects: ";
-    cin >> numSubjects;
+    cin >> numSubjects;  // Get the number of subjects
 
     double maxMarks;
     cout << "Enter maximum marks for the subjects: ";
-    cin >> maxMarks;
+    cin >> maxMarks;  // Get the maximum marks for the subjects
 
     double totalGradePoints = 0, totalCredits = 0;
 
     for (int i = 0; i < numSubjects; i++) {
         double marks, creditHours;
-        cout << endl << "Enter marks obtained for subject " << (i + 1) << ": ";
-        cin >> marks;
+        cout << endl << "Enter marks for subject " << (i + 1) << ": ";
+        cin >> marks;  // Get marks for the subject
         cout << "Enter credit hours for this subject: ";
-        cin >> creditHours;
-        cout << "-------------------------------------------" << endl;
-        double percentage = (marks / maxMarks) * 100;
-        double gradePoint = convertToGradePoint(percentage);
+        cin >> creditHours;  // Get credit hours for the subject
 
-        totalGradePoints += gradePoint * creditHours;
-        totalCredits += creditHours;
+        double percentage = (marks / maxMarks) * 100;  // Calculate percentage for the subject
+        double gradePoint = convertToGradePoint(percentage);  // Convert percentage to GPA
+
+        totalGradePoints += gradePoint * creditHours;  // Accumulate total grade points
+        totalCredits += creditHours;  // Accumulate total credits
     }
 
+    // Check for division by zero (no subjects or credits)
     if (totalCredits == 0) {
-        cout << "total credit hours cant be equal to zero" << endl;
+        cout << "Total credit hours can't be zero." << endl;
+    } else {
+        double gpa = totalGradePoints / totalCredits;  // Calculate GPA
+        cout << endl << "Your GPA is: " << gpa << endl; 
     }
-    else {
-        double gpa = totalGradePoints / totalCredits;
-        cout << endl << "Your GPA is: " << gpa << endl;
-    }
-
-
 }
