@@ -46,8 +46,43 @@ int main() {
         cout << "Total credit hours can't be zero." << endl;
     } else {
         double gpa = totalGradePoints / totalCredits;  // Calculate GPA
+        string gradeTotal;
         cout << endl << "Your GPA is: " << gpa << endl;
-    }
+
+        //Finding Grade depending on gpa
+        if (gpa > 3.7) {
+             gradeTotal = "A";
+        }
+        else if (gpa > 3.3) {
+            gradeTotal = "A-";
+        }
+        else if (gpa > 3.0) {
+            gradeTotal = "B+";
+        }
+        else if (gpa > 2.7) {
+            gradeTotal = "B";
+        }
+        else if (gpa > 2.3) {
+            gradeTotal = "B-";
+        }
+        else if (gpa > 2.0) {
+            gradeTotal = "C+";
+        }
+        else if (gpa > 1.7) {
+            gradeTotal = "C";
+        }   
+        else if (gpa > 1.3) {
+            gradeTotal = "C-";
+        }
+        else if (gpa > 1.0) {
+            gradeTotal = "D";
+        }
+        else {
+            gradeTotal = "F";
+        }
+        cout <<"Your overall grade is: " << gradeTotal << endl;
+        cout <<"-----------------------------------------------" <<endl;
+}   
 
 
     // Display GPA and Grade for each subject
@@ -88,4 +123,5 @@ int main() {
         }
 
         cout << "Grade for Subject " << (i + 1) << " (" << subject[i] << "): " << grade[i] << endl; 
+    }
 }
