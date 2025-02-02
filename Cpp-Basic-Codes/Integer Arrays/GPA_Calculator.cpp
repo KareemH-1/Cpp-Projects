@@ -50,7 +50,7 @@ int main() {
     }
 
 
-    // Display GPA for each subject
+    // Display GPA and Grade for each subject
     for (int i = 0; i < numSubjects; i++) {
         cout << "GPA for Subject " << (i + 1) << " (" << subject[i] << "): " << gradePoint[i] << endl; 
 
@@ -86,4 +86,6 @@ int main() {
         else{
             grade[i] == "F";
         }
+
+        cout << "Grade for Subject " << (i + 1) << " (" << subject[i] << "): " << grade[i] << endl; 
 }
