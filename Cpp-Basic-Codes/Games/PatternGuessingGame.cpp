@@ -10,7 +10,6 @@
 */
 
 #include <iostream>
-#include <string>
 using namespace std;
 
 // Function to check if the guessed number is correct

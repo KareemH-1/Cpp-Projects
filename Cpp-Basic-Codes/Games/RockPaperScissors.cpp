@@ -1,6 +1,5 @@
 #include <iostream>
 #include <ctime> // Include ctime library for rand() and srand()
-#include <string>
 using namespace std;
 
 // Function to generate a random number between 1 and 3, where:

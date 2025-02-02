@@ -1,6 +1,5 @@
 #include <iostream>
 #include <ctime> //used ctime library to use rand & srand functions to choose a number inbetween a range 
-#include <string>
 using namespace std;
 
 // Function to generate a random number between 1 and diff variable.
