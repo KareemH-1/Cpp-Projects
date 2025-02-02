@@ -18,9 +18,11 @@ int main() {
 
     double totalGradePoints = 0, totalCredits = 0;
     string subject[numSubjects];
+    string grade[numSubjects];
     double gradePoint[numSubjects];
     double marks[numSubjects];
     double creditHours[numSubjects];
+    double percentage[numSubjects];
 
     for (int i = 0; i < numSubjects; i++) {
         cout << endl << "Enter the name for subject " << (i + 1) << ": ";
@@ -47,8 +49,41 @@ int main() {
         cout << endl << "Your GPA is: " << gpa << endl;
     }
 
+
     // Display GPA for each subject
     for (int i = 0; i < numSubjects; i++) {
         cout << "GPA for Subject " << (i + 1) << " (" << subject[i] << "): " << gradePoint[i] << endl; 
-    }
+
+        percentage[i] = marks[i] / maxMarks;      
+        
+        if (percentage[i] >= 90) {
+            grade[i] == "A";
+        }
+        else if (percentage[i] >= 85) {
+            grade[i] == "A-";
+        }
+        else if (percentage[i] >= 80) {
+            grade[i] == "B+";
+        }
+        else if (percentage[i] >= 75) {
+            grade[i] == "B";
+        }
+        else if (percentage[i]>= 70) {
+            grade[i] == "B-";
+        }
+        else if (percentage[i] >= 65) {
+            grade[i] == "C+";
+        }
+        else if (percentage[i] >= 60) {
+            grade[i] == "C";
+        }
+        else if (percentage[i] >= 55) {
+            grade[i] == "C-";
+        }
+        else if (percentage[i] >= 50) {
+            grade[i] == "D";
+        }
+        else{
+            grade[i] == "F";
+        }
 }
