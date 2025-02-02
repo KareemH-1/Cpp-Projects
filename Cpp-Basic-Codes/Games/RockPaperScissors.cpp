@@ -1,16 +1,16 @@
 #include <iostream>
-#include <ctime> //used ctime library to use rand & srand functions to choose a number inbetween a range 
+#include <ctime> // Include ctime library for rand() and srand()
 #include <string>
 using namespace std;
 
-// Function to generate a random number between 1 and 3 , 1 resembles rock , 2 for paper and 3 for scissors.
+// Function to generate a random number between 1 and 3, where:
+// 1 = Rock, 2 = Paper, 3 = Scissors
 int randomnum() {
-    return ((rand() % 3) + 1);
+    return ((rand() % 3) + 1); // Generate a number between 1 and 3
 }
 
 int main() {
-    srand(time(0)); //initializing the random number generator with a starting value (the seed) so that it produces different random numbers each time the program runs.
-   
+    srand(time(0)); // Initialize the random number generator with a seed based on the current time
 
     // Display game title and instructions
     cout << "===========================================" << endl;
@@ -19,22 +19,22 @@ int main() {
     int points = 0; // Tracks the player's score
     int whichRound = 1; // Tracks the round number
     string choice = "yes"; // Ensures the game starts
-    string move; //The player's input
-    string oppmove; //the game's move;
+    string move; // Variable to store the player's input (Rock, Paper, or Scissors)
+    string oppmove; // Variable to store the computer's move (Rock, Paper, or Scissors)
 
-     for (;;) { // Infinite loop for game rounds
-        if (whichRound != 1) {
+    for (;;) { // Infinite loop to keep the game going
+        if (whichRound != 1) { // Check if it's not the first round
             cout << "-----------------------------------------" << endl;
             cout << "You currently have " << points << " points." << endl;
             cout << "Do you want to continue playing? (yes/no): ";
-            cin >> choice;
+            cin >> choice; // Ask the user if they want to continue
         }
 
-        // Check if the player wants to quit
+        // If the player chooses to quit the game
         if (choice == "No" || choice == "N" || choice == "0" || choice == "no" || choice == "n" || choice == "NO") {
             cout << "-----------------------------------------" << endl;
             cout << "Game Over! You scored " << points << " points." << endl;
-            break;
+            break; // Exit the game loop
         }
 
         // Start a new round
@@ -42,50 +42,48 @@ int main() {
         cout << "Round " << whichRound << endl;
         cout << "-----------------------------------------" << endl;
 
-         int generatedNum = randomnum(); // Generate a random number between (1-3)
-         
-         if(generatedNum == 1){
-            oppmove = "Rock";
-         }
-         else if (generatedNum ==2){
-            oppmove = "Paper";
-         }
-         else if(generatedNum == 3){
-            oppmove = "Scissors";
-         }
+        int generatedNum = randomnum(); // Generate the opponent's move (random number between 1 and 3)
 
-         cout << "Please enter your move: ";
-         cin>>move;
+        // Assign the computer's move based on the generated number
+        if (generatedNum == 1) {
+            oppmove = "Rock"; // 1 means Rock
+        }
+        else if (generatedNum == 2) {
+            oppmove = "Paper"; // 2 means Paper
+        }
+        else if (generatedNum == 3) {
+            oppmove = "Scissors"; // 3 means Scissors
+        }
 
-        
-          if (oppmove == "Rock" && (move == "Rock" || move == "rock" || move == "r" || move == "R" || move =="1")) {
-                cout << "The opponent chose " << oppmove << "." << endl;
-                cout << "=========================================" << endl;
-                cout << "           Correct! +1 POINT!            " << endl;
-                cout << "=========================================" << endl;
-                points++;
+        cout << "Please enter your move: ";
+        cin >> move; // Get the player's input
 
-            }
-             else if (oppmove == "Paper" && (move == "Paper" || move == "paper" || move == "p" || move == "P" || move =="2")) {
-                cout << "The opponent chose " << oppmove << "." << endl;
-                cout << "=========================================" << endl;
-                cout << "           Correct! +1 POINT!            " << endl;
-                cout << "=========================================" << endl;
-                points++;
-  
-            }
-             else if (oppmove == "Scissors" && (move == "scissors" || move == "Scissors" || move == "S" || move == "s" || move =="3")) {
-                cout << "The opponent chose " << oppmove << "." << endl;
+        // Check if the player's move is the same as the opponent's move
+        if (oppmove == "Rock" && (move == "Rock" || move == "rock" || move == "r" || move == "R" || move == "1")) {
+            cout << "The opponent chose " << oppmove << "." << endl;
+            cout << "=========================================" << endl;
+            cout << "           Correct! +1 POINT!            " << endl;
+            cout << "=========================================" << endl;
+            points++; // Increment points for a correct answer
+        }
+        else if (oppmove == "Paper" && (move == "Paper" || move == "paper" || move == "p" || move == "P" || move == "2")) {
+            cout << "The opponent chose " << oppmove << "." << endl;
+            cout << "=========================================" << endl;
+            cout << "           Correct! +1 POINT!            " << endl;
+            cout << "=========================================" << endl;
+            points++; // Increment points for a correct answer
+        }
+        else if (oppmove == "Scissors" && (move == "scissors" || move == "Scissors" || move == "S" || move == "s" || move == "3")) {
+            cout << "The opponent chose " << oppmove << "." << endl;
+            cout << "=========================================" << endl;
+            cout << "           Correct! +1 POINT!            " << endl;
+            cout << "=========================================" << endl;
+            points++; // Increment points for a correct answer
+        }
+        else {
+            cout << "Wrong! It was " << oppmove << "!" << endl; // Display the opponent's move if the player is wrong
+        }
 
-                cout << "=========================================" << endl;
-                cout << "           Correct! +1 POINT!            " << endl;
-                cout << "=========================================" << endl;
-                points++;
-
-            }
-            else{
-                cout << "Wrong it was " << oppmove << "!" << endl;
-            }
-               whichRound++; // Move to the next round
-     }
+        whichRound++; // Increment to the next round
+    }
 }
