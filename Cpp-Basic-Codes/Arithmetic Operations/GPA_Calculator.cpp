@@ -1,5 +1,5 @@
 #include <iostream>
-
+#include <string>
 using namespace std;
 
 // Function to convert marks to GPA directly
@@ -17,19 +17,26 @@ int main() {
     cin >> maxMarks;  // Get the maximum marks for the subjects
 
     double totalGradePoints = 0, totalCredits = 0;
+    string subject[numSubjects];
+    double gradePoint[numSubjects];
+    double marks[numSubjects];
+    double creditHours[numSubjects];
 
     for (int i = 0; i < numSubjects; i++) {
-        double marks, creditHours;
-        cout << endl << "Enter marks for subject " << (i + 1) << ": ";
-        cin >> marks;  // Get marks for the subject
+        cout << endl << "Enter the name for subject " << (i + 1) << ": ";
+        cin >> subject[i];  // Get name for the subject
+        
+        cout << "Enter marks for " << subject[i] << ": ";
+        cin >> marks[i];  // Get marks for the subject
+        
         cout << "Enter credit hours for this subject: ";
-        cin >> creditHours;  // Get credit hours for the subject
+        cin >> creditHours[i];  // Get credit hours for the subject
 
         // Calculate grade point using the formula (marks/maxMarks) * 4
-        double gradePoint = convertToGradePoint(marks, maxMarks);  
+        gradePoint[i] = convertToGradePoint(marks[i], maxMarks);  
 
-        totalGradePoints += gradePoint * creditHours;  // Accumulate total grade points
-        totalCredits += creditHours;  // Accumulate total credits
+        totalGradePoints += gradePoint[i] * creditHours[i];  // Accumulate total grade points
+        totalCredits += creditHours[i];  // Accumulate total credits
     }
 
     // Check for division by zero (no subjects or credits)
@@ -37,8 +44,11 @@ int main() {
         cout << "Total credit hours can't be zero." << endl;
     } else {
         double gpa = totalGradePoints / totalCredits;  // Calculate GPA
-        cout << endl << "Your GPA is: " << gpa << endl; 
+        cout << endl << "Your GPA is: " << gpa << endl;
     }
 
-    return 0;
+    // Display GPA for each subject
+    for (int i = 0; i < numSubjects; i++) {
+        cout << "GPA for Subject " << (i + 1) << " (" << subject[i] << "): " << gradePoint[i] << endl; 
+    }
 }
