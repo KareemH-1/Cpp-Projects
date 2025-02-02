@@ -49,7 +49,7 @@ int main() {
         string gradeTotal;
         cout << endl << "Your GPA is: " << gpa << endl;
 
-        //Finding Grade depending on gpa
+        // Finding Grade depending on GPA
         if (gpa > 3.7) {
              gradeTotal = "A";
         }
@@ -82,8 +82,7 @@ int main() {
         }
         cout <<"Your overall grade is: " << gradeTotal << endl;
         cout <<"-----------------------------------------------" <<endl;
-}   
-
+    }   
 
     // Display GPA and Grade for each subject
     for (int i = 0; i < numSubjects; i++) {
@@ -120,6 +119,8 @@ int main() {
             grade[i] = "F";
         }
         cout << "GPA for Subject " << (i + 1) << " (" << subject[i] << "): " << gradePoint[i] << " ,Grade: "<< grade[i] <<endl; 
+        if (i!= numSubjects-1){
         cout << "-------------------------------" <<endl;
+        }
     }
 }
