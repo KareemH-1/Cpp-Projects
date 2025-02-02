@@ -2,42 +2,13 @@
 
 using namespace std;
 
-// Function to convert percentage to a 4.0 scale
-double convertToGradePoint(double percentage) {
-    if (percentage >= 90) {
-        return (4.0);
-    }
-    else if (percentage >= 85) {
-        return (3.7);
-    }
-    else if (percentage >= 80) {
-        return (3.3);
-    }
-    else if (percentage >= 75) {
-        return (3.0);
-    }
-    else if (percentage >= 70) {
-        return (2.7);
-    }
-    else if (percentage >= 65) {
-        return (2.3);
-    }
-    else if (percentage >= 60) {
-        return (2.0);
-    }
-    else if (percentage >= 55) {
-        return (1.7);
-    }
-    else if (percentage >= 50) {
-        return (1.0);
-    }
-    else{
-        return(0); //failing grade
-    }
+// Function to convert marks to GPA directly
+double convertToGradePoint(double marks, double maxMarks) {
+    return (marks / maxMarks) * 4.0;
 }
 
 int main() {
-    int numSubjects;  
+    int numSubjects;
     cout << "Enter number of subjects: ";
     cin >> numSubjects;  // Get the number of subjects
 
@@ -54,8 +25,8 @@ int main() {
         cout << "Enter credit hours for this subject: ";
         cin >> creditHours;  // Get credit hours for the subject
 
-        double percentage = (marks / maxMarks) * 100;  // Calculate percentage for the subject
-        double gradePoint = convertToGradePoint(percentage);  // Convert percentage to GPA
+        // Calculate grade point using the formula (marks/maxMarks) * 4
+        double gradePoint = convertToGradePoint(marks, maxMarks);  
 
         totalGradePoints += gradePoint * creditHours;  // Accumulate total grade points
         totalCredits += creditHours;  // Accumulate total credits
@@ -68,4 +39,6 @@ int main() {
         double gpa = totalGradePoints / totalCredits;  // Calculate GPA
         cout << endl << "Your GPA is: " << gpa << endl; 
     }
+
+    return 0;
 }
