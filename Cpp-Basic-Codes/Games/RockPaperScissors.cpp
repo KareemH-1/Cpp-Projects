@@ -15,6 +15,13 @@ int main() {
     // Display game title and instructions
     cout << "===========================================" << endl;
     cout << "         Rock-Paper-Scissors Game!         " << endl;
+    cout << "===========================================" << endl << endl;
+    cout << "Instructions:" << endl;
+    cout << " - Type 'Rock' (or 'r', 'R', or '1') for Rock" << endl;
+    cout << " - Type 'Paper' (or 'p', 'P', or '2') for Paper" << endl;
+    cout << " - Type 'Scissors' (or 's', 'S', or '3') for Scissors" << endl;
+    cout << "Try to match the opponent's move to score a point!" << endl;
+
 
     int points = 0; // Tracks the player's score
     int whichRound = 1; // Tracks the round number
