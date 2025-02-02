@@ -4,7 +4,7 @@ using namespace std;
 
 // Function to convert marks to GPA directly
 double convertToGradePoint(double marks, double maxMarks) {
-    return (marks / maxMarks) * 4.0;
+    return ((marks / maxMarks) * 4);
 }
 
 int main() {
