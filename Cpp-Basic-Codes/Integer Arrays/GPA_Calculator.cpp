@@ -119,7 +119,7 @@ int main() {
         else{
             grade[i] = "F";
         }
-        cout << "GPA for Subject " << (i + 1) << " (" << subject[i] << "): " << gradePoint[i] << "Grade: "<< grade[i] <<endl; 
-        cout << "-------" <<endl;
+        cout << "GPA for Subject " << (i + 1) << " (" << subject[i] << "): " << gradePoint[i] << " ,Grade: "<< grade[i] <<endl; 
+        cout << "-------------------------------" <<endl;
     }
 }
