@@ -88,38 +88,38 @@ int main() {
     // Display GPA and Grade for each subject
     for (int i = 0; i < numSubjects; i++) {
         cout << "GPA for Subject " << (i + 1) << " (" << subject[i] << "): " << gradePoint[i] << endl; 
-
+        cout << "-------" <<endl;
         percentage[i] = marks[i] / maxMarks;      
         
         if (percentage[i] >= 90) {
-            grade[i] == "A";
+            grade[i] = "A";
         }
         else if (percentage[i] >= 85) {
-            grade[i] == "A-";
+            grade[i] = "A-";
         }
         else if (percentage[i] >= 80) {
-            grade[i] == "B+";
+            grade[i] = "B+";
         }
         else if (percentage[i] >= 75) {
-            grade[i] == "B";
+            grade[i] = "B";
         }
         else if (percentage[i]>= 70) {
-            grade[i] == "B-";
+            grade[i] = "B-";
         }
         else if (percentage[i] >= 65) {
-            grade[i] == "C+";
+            grade[i] = "C+";
         }
         else if (percentage[i] >= 60) {
-            grade[i] == "C";
+            grade[i] = "C";
         }
         else if (percentage[i] >= 55) {
-            grade[i] == "C-";
+            grade[i] = "C-";
         }
         else if (percentage[i] >= 50) {
-            grade[i] == "D";
+            grade[i] = "D";
         }
         else{
-            grade[i] == "F";
+            grade[i] = "F";
         }
 
         cout << "Grade for Subject " << (i + 1) << " (" << subject[i] << "): " << grade[i] << endl; 
