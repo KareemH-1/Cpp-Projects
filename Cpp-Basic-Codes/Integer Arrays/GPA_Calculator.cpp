@@ -89,7 +89,7 @@ int main() {
     for (int i = 0; i < numSubjects; i++) {
         cout << "GPA for Subject " << (i + 1) << " (" << subject[i] << "): " << gradePoint[i] << endl; 
         cout << "-------" <<endl;
-        percentage[i] = marks[i] / maxMarks;      
+        percentage[i] = (marks[i] / maxMarks) *100;      
         
         if (percentage[i] >= 90) {
             grade[i] = "A";
