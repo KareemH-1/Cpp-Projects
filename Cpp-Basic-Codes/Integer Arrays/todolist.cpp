@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 using namespace std;
 
 void display(string todoList[], int size) {
@@ -27,7 +28,8 @@ void remove(string todoList[], int index, int &size) {
 }
 void add(string todoList[], int &size) {
     cout << "Enter the task you want to add: ";
-    cin >> todoList[size]; 
+    cin >> ws;  // Clears leftover newline so getline() works properly
+    getline(cin, todoList[size]);  // Reads the full line (multiple words)
     size++;
 }
 
