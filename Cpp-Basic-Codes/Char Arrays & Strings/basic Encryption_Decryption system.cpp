@@ -1,6 +1,5 @@
 #include <iostream>
 using namespace std;
-
 void encryption(char x[]) {
 	for (int i = 0; x[i] != '\0'; i++) {
 		if (x[i] == 'a') {
@@ -32,6 +31,30 @@ void encryption(char x[]) {
 		}
 		else if (x[i] == 'S') {
 			x[i] = '$';
+		}
+		else if (x[i] == 't') {
+			x[i] = '+'; 
+		}
+		else if (x[i] == 'T') {
+			x[i] = '^'; 
+		}
+		else if (x[i] == 'g') {
+			x[i] = '&'; 
+		}
+		else if (x[i] == 'G') {
+			x[i] = '9'; 
+		}
+		else if (x[i] == 'b') {
+			x[i] = '6'; 
+		}
+		else if (x[i] == 'B') {
+			x[i] = '%'; 
+		}
+		else if (x[i] == 'c') {
+			x[i] = '('; 
+		}
+		else if (x[i] == 'C') {
+			x[i] = ')'; 
 		}
 	}
 }
@@ -68,8 +91,33 @@ void decryption(char x[]) {
 		else if (x[i] == '$') {
 			x[i] = 'S';
 		}
+		else if (x[i] == '+') {
+			x[i] = 't';
+		}
+		else if (x[i] == '^') {
+			x[i] = 'T';
+		}
+		else if (x[i] == '&') {
+			x[i] = 'g';
+		}
+		else if (x[i] == '9') {
+			x[i] = 'G';
+		}
+		else if (x[i] == '6') {
+			x[i] = 'b';
+		}
+		else if (x[i] == '%') {
+			x[i] = 'B';
+		}
+		else if (x[i] == '(') {
+			x[i] = 'c';
+		}
+		else if (x[i] == ')') {
+			x[i] = 'C';
+		}
 	}
 }
+
 
 int main() {
 	int choice;
