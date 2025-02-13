@@ -42,7 +42,11 @@ void placeMines(char mineBoard[10][10]) {
 // Count adjacent mines for a given cell
 int countMines(char mineBoard[10][10], int row, int col) {
     int count = 0;
-    int directions[8][2] = {{-1, -1}, {-1, 0}, {-1, 1},{0, -1},{0, 1},{1, -1}, {1, 0}, {1, 1}};
+    int directions[8][2] = {
+        {-1, -1},{-1, 0},{-1, 1},  // Top-left, Top, Top-right
+        {0, -1},         {0, 1},   // Left,       Right
+        {1, -1}, {1, 0}, {1, 1}    // Bottom-left, Bottom, Bottom-right
+    };
 
     for (int i = 0; i < 8; i++) {
         int newRow = row + directions[i][0];
