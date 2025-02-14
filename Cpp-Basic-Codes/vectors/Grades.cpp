@@ -10,8 +10,8 @@ int main(){
     while(choice != 0){
         cout << "0. Exit" << endl;
         cout << "1. Add a student" << endl;
-        cout << "2. Remove a student" << endl;
-        cout << "3. Display all students" << endl;
+        cout << "2. Display all students" << endl;
+        cout << "3. Remove a student" << endl;
         cout << "Enter your choice: ";
         cin >> choice;
 
