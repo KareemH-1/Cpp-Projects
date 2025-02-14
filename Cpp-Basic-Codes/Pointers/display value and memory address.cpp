@@ -21,10 +21,17 @@ int main(){
         cin >> testarr[i];
     }
     int *ptr1 = testarr; //being first index by default
+ 
+/*  use for loop instead
+    --------------------
     cout << "Memory Address of first index: " << ptr1 << endl;
     cout << "Memory Address of second index: " << ptr1 + 1 << endl;
     cout << "Memory Address of third index: " << ptr1 + 2 << endl;
     cout << "Memory Address of fourth index: " << ptr1 + 3 << endl;
     cout << "Memory Address of fifth index: " << ptr1 + 4 << endl;
-
+*/
+    for(int i = 0; i < 5; i++) {
+        cout << "Memory Address of index " << i << ": " << ptr1 << endl;
+        ptr1++;
+    }
 }
