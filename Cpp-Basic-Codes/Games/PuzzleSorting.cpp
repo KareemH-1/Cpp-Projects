@@ -3,33 +3,52 @@
 
 using namespace std;
 
+// Function to display the game rules
+void displayRules() {
+    cout << "========================================" << endl;
+    cout << "            NUMBER PUZZLE GAME          " << endl;
+    cout << "========================================" << endl;
+    cout << " Rules: " << endl;
+    cout << " - The numbers are arranged in a grid with one empty space (0)." << endl;
+    cout << " - Your goal is to arrange the numbers in order from 0 to N*N - 1." << endl;
+    cout << " - You can move the empty space by entering one of the following:" << endl;
+    cout << "   1. Up (Move zero up)" << endl;
+    cout << "   2. Down (Move zero down)" << endl;
+    cout << "   3. Left (Move zero left)" << endl;
+    cout << "   4. Right (Move zero right)" << endl;
+    cout << " - The game starts at level 2 and increases when you complete a level." << endl;
+    cout << "========================================" << endl;
+}
+
+// Function to display the grid
 void display(int arr[][10], int level) {
-    cout << endl << "-------------------" <<endl;
+    cout << "\n-------------------" << endl;
     for (int i = 0; i < level; i++) {
         for (int j = 0; j < level; j++) {
             cout << arr[i][j] << " ";
         }
         cout << endl;
     }
-    cout << "-------------------"<<endl;
+    cout << "-------------------\n";
 }
 
+// Function to check if the grid is sorted in ascending order
 bool isSorted(int arr[][10], int level) {
-    int expected = 0; // Start from 0
-
+    int expected = 0;
     for (int i = 0; i < level; i++) {
         for (int j = 0; j < level; j++) {
             if (arr[i][j] != expected) {
-                return false; // If it's not in order, return false
+                return false;
             }
-            expected++; // Increase expected number
+            expected++;
         }
     }
-    return true; // If loop completes, it's sorted
+    return true;
 }
 
+// Function to fill the grid with random unique numbers
 void randomFilling(int arr[][10], int level) {
-    int used[100] = { 0 }; // Track used numbers
+    int used[100] = { 0 };
     int num, unique;
 
     for (int i = 0; i < level; i++) {
@@ -37,7 +56,7 @@ void randomFilling(int arr[][10], int level) {
             unique = 0;
             while (unique == 0) {
                 num = rand() % (level * level);
-                if (used[num] == 0) { // Check uniqueness
+                if (used[num] == 0) {
                     unique = 1;
                     used[num] = 1;
                 }
@@ -47,17 +66,20 @@ void randomFilling(int arr[][10], int level) {
     }
 }
 
+// Function to increment level when a level is completed
 void incrementLvl(int arr[][10], int& level) {
     if (isSorted(arr, level) && level < 10) {
-        cout << "You win! \nScore: " << level - 1 << endl;
+        cout << "You win!\nScore: " << level - 1 << "\n";
         level++;
         randomFilling(arr, level);
     }
 }
 
+// Function to move zero in the grid
 void move(int arr[][10], int level) {
     int posZI = -1, posZJ = -1;
 
+    // Find position of zero
     for (int i = 0; i < level; i++) {
         for (int j = 0; j < level; j++) {
             if (arr[i][j] == 0) {
@@ -68,7 +90,8 @@ void move(int arr[][10], int level) {
     }
 
     string choice;
-    cout << "Enter direction to move zero: \n1. Up \n2. Down \n3. Left \n4. Right" << endl;
+    cout << "Enter direction to move zero: \n";
+    cout << "1. Up\n2. Down\n3. Left\n4. Right\n";
     cin >> choice;
 
     if ((choice == "Up" || choice == "up" || choice == "u" || choice == "U" || choice == "1") && posZI > 0) {
@@ -87,10 +110,15 @@ void move(int arr[][10], int level) {
         arr[posZI][posZJ] = arr[posZI][posZJ + 1];
         arr[posZI][posZJ + 1] = 0;
     }
+    else {
+        cout << "Invalid move. Try again.\n";
+    }
 }
 
 int main() {
     srand(time(0));
+
+    displayRules(); // Show game rules at the beginning
 
     int level = 2;
     int arr[10][10] = { 0 };
