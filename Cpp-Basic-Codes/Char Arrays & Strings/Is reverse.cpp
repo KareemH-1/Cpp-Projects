@@ -1,23 +1,26 @@
 #include <iostream>
 using namespace std;
 
-int main(){
-    string s , t;
+int main() {
+    string s, t;
     cout << "Enter a string: ";
-    cin >> s ;
+    cin >> s;
+
     cout << "Enter another string: ";
     cin >> t;
 
-    string temp;
-    int j=0;
-    for(int i = t.length()-1; i>=0; i--){
-        temp[j] = t[i];
-        j++;
-    }
-    if(s == temp){
-        cout << "YES";
-    }
-    else{
+    int n = s.length();
+    if (n != t.length()) {
         cout << "NO";
+        return 0;
     }
+
+    for (int i = 0; i < n; i++) {
+        if (s[i] != t[n - 1 - i]) {
+            cout << "NO";
+            return 0;
+        }
+    }
+    
+    cout << "YES";
 }
