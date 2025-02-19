@@ -19,13 +19,13 @@ int main() {
      int bestRow = -1, bestCol = -1, bestSize = -1;
  
      // go over possible triangle base sizes (only odd sizes from 3 to 19)
-     for (int sizeBase = 3; sizeBase <= 19; sizeBase += 2) {
+     for (int sizeBase = 3; sizeBase < n; sizeBase += 2) {
          
          int height = (sizeBase - 1) / 2;  // Calculate the height of each size
          
          // go through all possible top positions of the triangle
-         for (int i = 0; i + height < 20; i++) {
-             for (int j = 0; j + sizeBase <= 20; j++) {
+         for (int i = 0; i + height < n; i++) {
+             for (int j = 0; j + sizeBase <= n; j++) {
  
                  int sum = 0;  // Variable to store the current triangle sum
                  int center = j + sizeBase / 2;  // Calculate the center column of the base
@@ -36,7 +36,7 @@ int main() {
                      int right = center + q; // right of the current row
  
                      // Ensure boundaries are within the matrix
-                     if (left >= 0 && right < 20) {
+                     if (left >= 0 && right < n) {
                          for (int col = left; col <= right; col++) {
                              sum += matrix[i + q][col];  // Add values to the sum
                          }
