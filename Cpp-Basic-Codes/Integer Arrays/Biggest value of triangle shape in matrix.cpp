@@ -2,9 +2,13 @@
 using namespace std;
 
 int main() {
-    int matrix[20][20];
-    for (int i = 0; i < 20; i++) {
-        for (int j = 0; j < 20; j++) {
+    int n;
+    cout << "Enter the size of the matrix: ";
+    cin >> n;
+
+    int matrix[n][n];
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
             cin >> matrix[i][j];
         }
     }
@@ -13,11 +17,11 @@ int main() {
     int bestRow = -1, bestCol = -1, bestSize = -1;
 
 
-    for (int sizeBase = 3; sizeBase <= 19; sizeBase += 2) {
+    for (int sizeBase = 3; sizeBase < n; sizeBase += 2) {
 
         int height = (sizeBase - 1) / 2;  
-        for (int i = 0; i + height < 20; i++) { 
-            for (int j = 0; j + sizeBase <= 20; j++) {
+        for (int i = 0; i + height < n; i++) { 
+            for (int j = 0; j + sizeBase <= n; j++) {
 
                 int sum = 0;
                 int center = j + sizeBase / 2;
@@ -27,7 +31,7 @@ int main() {
                     int right = center + q;
 
 
-                    if (left >= 0 && right < 20) {
+                    if (left >= 0 && right < n) {
                         for (int col = left; col <= right; col++) {
                             sum += matrix[i + q][col];
                         }
