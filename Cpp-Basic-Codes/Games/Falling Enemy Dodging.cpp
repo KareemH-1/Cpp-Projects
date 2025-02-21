@@ -1,34 +1,33 @@
 #include <iostream>
-#include <conio.h>  // For _getch() and _kbhit()
-#include <ctime>    // For randomization
-#include <windows.h> // For Sleep()
+#include <conio.h>
+#include <ctime>
+#include <windows.h>
 
 using namespace std;
 
-// Enum for movement directions
 enum Direction { UP, DOWN, LEFT, RIGHT };
 
-// Struct for player
 struct Player {
     int x, y;
     int score;
     int HP;
 };
 
-// Grid size
 const int GRID_SIZE_LENGTH = 25;
 const int GRID_SIZE_WIDTH = 30;
 char grid[GRID_SIZE_LENGTH][GRID_SIZE_WIDTH];
 
-// Initialize the grid
+void setCursorPosition(int x, int y) {
+    COORD coord = { (SHORT)x, (SHORT)y };
+    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+}
+
 void initializeGrid(Player& p) {
     for (int i = 0; i < GRID_SIZE_LENGTH; i++) {
         for (int j = 0; j < GRID_SIZE_WIDTH; j++) {
             grid[i][j] = ' ';
         }
     }
-
-    // Create borders
     for (int j = 0; j < GRID_SIZE_WIDTH; j++) {
         grid[0][j] = '#';
         grid[GRID_SIZE_LENGTH - 1][j] = '#';
@@ -37,14 +36,12 @@ void initializeGrid(Player& p) {
         grid[i][0] = '#';
         grid[i][GRID_SIZE_WIDTH - 1] = '#';
     }
-
-    // Place player on the grid
     grid[p.y][p.x] = '@';
 }
 
-// Display the grid
 void displayGrid(const Player& p) {
-    system("cls"); // Clear screen (Windows only)
+    setCursorPosition(0, 0);
+    cout << "Use W (up), S (down), A (left), D (right) to move. Press 'Q' to quit.\n\n";
     for (int i = 0; i < GRID_SIZE_LENGTH; i++) {
         for (int j = 0; j < GRID_SIZE_WIDTH; j++) {
             cout << grid[i][j] << " ";
@@ -54,36 +51,62 @@ void displayGrid(const Player& p) {
     cout << "Score: " << p.score << "  |  HP: " << p.HP << endl;
 }
 
-// Move the player
 void movePlayer(Player& p, Direction dir) {
-    grid[p.y][p.x] = ' '; // Clear current position
+    int oldX = p.x, oldY = p.y;
 
     if (dir == UP && p.y > 1) p.y--;
     else if (dir == DOWN && p.y < GRID_SIZE_LENGTH - 2) p.y++;
     else if (dir == LEFT && p.x > 1) p.x--;
     else if (dir == RIGHT && p.x < GRID_SIZE_WIDTH - 2) p.x++;
 
+    // Check if player moved into an enemy
+    if (grid[p.y][p.x] == '*') {
+        p.HP--;
+        if (p.HP <= 0) {
+            system("cls");
+            cout << "Game Over! You lost all HP.\n";
+            cout << "Final Score: " << p.score << endl;
+            exit(0);
+        }
+    }
+
+    if (oldX == p.x && oldY == p.y) return;
+
+    // Clear old position
+    setCursorPosition(2 * oldX, oldY + 2);
+    cout << ' ';
+
+    // Update player position in grid
+    grid[oldY][oldX] = ' ';
     grid[p.y][p.x] = '@';
+
+    // Print new player position
+    setCursorPosition(2 * p.x, p.y + 2);
+    cout << '@';
 }
 
-// Spawn new enemies randomly at the top
 void spawnEnemy() {
-    int enemyCount = rand() % 3 + 2;  // Randomly spawn 2 to 5 enemies per cycle
+    int enemyCount = rand() % 3 + 2;
     for (int i = 0; i < enemyCount; i++) {
         int x = rand() % (GRID_SIZE_WIDTH - 2) + 1;
-        if (grid[1][x] == ' ') grid[1][x] = '*';
+        if (grid[1][x] == ' ') {
+            grid[1][x] = '*';
+            setCursorPosition(2 * x, 3);
+            cout << '*';
+        }
     }
 }
 
-// Move enemies downward
 void moveEnemiesDown(Player& p) {
     for (int i = GRID_SIZE_LENGTH - 2; i > 0; i--) {
         for (int j = 1; j < GRID_SIZE_WIDTH - 1; j++) {
             if (grid[i][j] == '*') {
-                grid[i][j] = ' '; // Clear old position
+                grid[i][j] = ' ';
+                setCursorPosition(2 * j, i + 2);
+                cout << ' ';
 
                 if (i + 1 < GRID_SIZE_LENGTH - 1) {
-                    if (grid[i + 1][j] == '@') { // If enemy hits player
+                    if (grid[i + 1][j] == '@') {
                         p.HP--;
                         if (p.HP <= 0) {
                             system("cls");
@@ -91,9 +114,14 @@ void moveEnemiesDown(Player& p) {
                             cout << "Final Score: " << p.score << endl;
                             exit(0);
                         }
+                        // Player remains visible
+                        setCursorPosition(2 * j, i + 3);
+                        cout << '@';
                     }
                     else {
                         grid[i + 1][j] = '*';
+                        setCursorPosition(2 * j, i + 3);
+                        cout << '*';
                     }
                 }
             }
@@ -101,12 +129,13 @@ void moveEnemiesDown(Player& p) {
     }
 }
 
-// Remove enemies that reach the bottom and increase score
 void deleteEnemy(Player& p) {
     for (int i = 1; i < GRID_SIZE_WIDTH - 1; i++) {
         if (grid[GRID_SIZE_LENGTH - 2][i] == '*') {
-            grid[GRID_SIZE_LENGTH - 2][i] = ' '; // Remove enemy
-            p.score++; // Increase score
+            grid[GRID_SIZE_LENGTH - 2][i] = ' ';
+            setCursorPosition(2 * i, GRID_SIZE_LENGTH);
+            cout << ' ';
+            p.score++;
         }
     }
 }
@@ -115,20 +144,18 @@ int main() {
     srand(time(0));
     Player player = { 15, 20, 0, 10 };
     initializeGrid(player);
-
-    cout << "Use W (up), S (down), A (left), D (right) to move. Press 'Q' to quit.\n";
+    displayGrid(player);
 
     int frameCounter = 0;
     while (true) {
-        if (frameCounter % 5 == 0) { // Spawn enemies every 5 cycles
+        if (frameCounter % 5 == 0) {
             spawnEnemy();
         }
         moveEnemiesDown(player);
         deleteEnemy(player);
+        setCursorPosition(0, GRID_SIZE_LENGTH + 2);
+        cout << "Score: " << player.score << "  |  HP: " << player.HP << "   ";
 
-        displayGrid(player);
-
-        // Non-blocking player movement
         if (_kbhit()) {
             char input = _getch();
             if (input == 'W' || input == 'w') movePlayer(player, UP);
@@ -138,8 +165,7 @@ int main() {
             else if (input == 'Q' || input == 'q') break;
         }
 
-        Sleep(100); // Adjust game speed
+        Sleep(100);
         frameCounter++;
     }
-
 }
