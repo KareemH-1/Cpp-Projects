@@ -39,7 +39,7 @@ void initializeGrid(Player& p) {
     grid[p.y][p.x] = '@';
 }
 
-void displayGrid(const Player& p) {
+void displayGrid(const Player& p, int level) {
     setCursorPosition(0, 0);
     cout << "Use W (up), S (down), A (left), D (right) to move. Press 'Q' to quit.\n\n";
     for (int i = 0; i < GRID_SIZE_LENGTH; i++) {
@@ -48,7 +48,7 @@ void displayGrid(const Player& p) {
         }
         cout << endl;
     }
-    cout << "Score: " << p.score << "  |  HP: " << p.HP << endl;
+    cout << "Level: " << level << "  |  Score: " << p.score << "  |  HP: " << p.HP << endl;
 }
 
 void movePlayer(Player& p, Direction dir) {
@@ -59,7 +59,6 @@ void movePlayer(Player& p, Direction dir) {
     else if (dir == LEFT && p.x > 1) p.x--;
     else if (dir == RIGHT && p.x < GRID_SIZE_WIDTH - 2) p.x++;
 
-    // Check if player moved into an enemy
     if (grid[p.y][p.x] == '*') {
         p.HP--;
         if (p.HP <= 0) {
@@ -70,29 +69,28 @@ void movePlayer(Player& p, Direction dir) {
         }
     }
 
-    // Check if player stepped on an HP item
     if (grid[p.y][p.x] == 'H') {
-        p.HP++;  // Increase HP
-        grid[p.y][p.x] = ' ';  // Remove the HP item
+        p.HP++;
+        grid[p.y][p.x] = ' ';
     }
 
     if (oldX == p.x && oldY == p.y) return;
 
-    // Clear old position
     setCursorPosition(2 * oldX, oldY + 2);
     cout << ' ';
 
-    // Update player position in grid
     grid[oldY][oldX] = ' ';
     grid[p.y][p.x] = '@';
 
-    // Print new player position
     setCursorPosition(2 * p.x, p.y + 2);
     cout << '@';
 }
 
-void spawnEnemy() {
-    int enemyCount = rand() % 3 + 2;
+void spawnEnemy(int level) {
+    int minEnemies = 1 + level / 2;
+    int maxEnemies = 2 + level;
+    int enemyCount = rand() % (maxEnemies - minEnemies + 1) + minEnemies;
+
     for (int i = 0; i < enemyCount; i++) {
         int x = rand() % (GRID_SIZE_WIDTH - 2) + 1;
         if (grid[1][x] == ' ') {
@@ -106,27 +104,33 @@ void spawnEnemy() {
 void moveEnemiesDown(Player& p) {
     for (int i = GRID_SIZE_LENGTH - 2; i > 0; i--) {
         for (int j = 1; j < GRID_SIZE_WIDTH - 1; j++) {
-            if (grid[i][j] == '*') {
+            if (grid[i][j] == '*' || grid[i][j] == 'H') {
+                char temp = grid[i][j];
                 grid[i][j] = ' ';
                 setCursorPosition(2 * j, i + 2);
                 cout << ' ';
 
                 if (i + 1 < GRID_SIZE_LENGTH - 1) {
                     if (grid[i + 1][j] == '@') {
-                        p.HP--;
-                        if (p.HP <= 0) {
-                            system("cls");
-                            cout << "Game Over! You lost all HP.\n";
-                            cout << "Final Score: " << p.score << endl;
-                            exit(0);
+                        if (temp == '*') {
+                            p.HP--;
+                            if (p.HP <= 0) {
+                                system("cls");
+                                cout << "Game Over! You lost all HP.\n";
+                                cout << "Final Score: " << p.score << endl;
+                                exit(0);
+                            }
+                        }
+                        else if (temp == 'H') {
+                            p.HP++;
                         }
                         setCursorPosition(2 * j, i + 3);
                         cout << '@';
                     }
                     else {
-                        grid[i + 1][j] = '*';
+                        grid[i + 1][j] = temp;
                         setCursorPosition(2 * j, i + 3);
-                        cout << '*';
+                        cout << temp;
                     }
                 }
             }
@@ -145,12 +149,10 @@ void deleteEnemy(Player& p) {
     }
 }
 
-// HP item spawn function
 void spawnHpItem() {
-    if (rand() % 5 == 0) {  // 1/5 chance to spawn an HP item
+    if (rand() % 8 == 0) {
         int x = rand() % (GRID_SIZE_WIDTH - 2) + 1;
-
-        if (grid[1][x] == ' ') {  // Ensure it spawns at the top row
+        if (grid[1][x] == ' ') {
             grid[1][x] = 'H';
             setCursorPosition(2 * x, 3);
             cout << 'H';
@@ -158,50 +160,51 @@ void spawnHpItem() {
     }
 }
 
-void moveHpItemsDown(Player& p) {
-    for (int i = GRID_SIZE_LENGTH - 2; i > 0; i--) {
-        for (int j = 1; j < GRID_SIZE_WIDTH - 1; j++) {
-            if (grid[i][j] == 'H') {
-                grid[i][j] = ' ';
-                setCursorPosition(2 * j, i + 2);
-                cout << ' ';
-
-                if (i + 1 < GRID_SIZE_LENGTH - 1) {
-                    if (grid[i + 1][j] == '@') {  // Player collects HP
-                        p.HP++;
-                        setCursorPosition(2 * j, i + 3);
-                        cout << '@';
-                    }
-                    else {
-                        grid[i + 1][j] = 'H';
-                        setCursorPosition(2 * j, i + 3);
-                        cout << 'H';
-                    }
-                }
-            }
-        }
-    }
+int getLevel(int score) {
+    if (score >= 1000) return 10;
+    if (score >= 750) return 9;
+    if (score >= 500) return 8;
+    if (score >= 400) return 7;
+    if (score >= 250) return 6;
+    if (score >= 100) return 5;
+    if (score >= 50) return 4;
+    if (score >= 25) return 3;
+    if (score >= 10) return 2;
+    return 1;
 }
 
+void displayWinScreen() {
+    system("cls");
+    cout << "===========================" << endl;
+    cout << "        YOU WIN!           " << endl;
+    cout << "===========================" << endl;
+    cout << "Final Score: 1000" << endl;
+    exit(0);
+}
 
 int main() {
     srand(time(0));
     Player player = { 15, 20, 0, 10 };
     initializeGrid(player);
-    displayGrid(player);
+    displayGrid(player, 1);
 
     int frameCounter = 0;
     while (true) {
-        if (frameCounter % 5 == 0) {
-            spawnEnemy();
+        int level = getLevel(player.score);
+
+        if (level == 10) {
+            displayWinScreen();
+        }
+
+        if (frameCounter % (7 - level / 2) == 0) {
+            spawnEnemy(level);
             spawnHpItem();
         }
-        moveEnemiesDown(player);
-        moveHpItemsDown(player);
-        deleteEnemy(player);
 
+        moveEnemiesDown(player);
+        deleteEnemy(player);
         setCursorPosition(0, GRID_SIZE_LENGTH + 2);
-        cout << "Score: " << player.score << "  |  HP: " << player.HP << "   ";
+        cout << "Level: " << level << "  |  Score: " << player.score << "  |  HP: " << player.HP << "   ";
 
         if (_kbhit()) {
             char input = _getch();
@@ -212,8 +215,7 @@ int main() {
             else if (input == 'Q' || input == 'q') break;
         }
 
-        Sleep(100);
+        Sleep(150 - level * 8);
         frameCounter++;
     }
-
 }
