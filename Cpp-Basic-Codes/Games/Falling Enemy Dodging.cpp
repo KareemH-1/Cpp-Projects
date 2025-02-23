@@ -203,8 +203,17 @@ int main() {
 
         moveEnemiesDown(player);
         deleteEnemy(player);
+
         setCursorPosition(0, GRID_SIZE_LENGTH + 2);
-        cout << "Level: " << level << "  |  Score: " << player.score << "  |  HP: " << player.HP << "   ";
+        cout << string(50, ' ') << "\r";  // Clears the entire line to remove leftovers
+        cout << "Score: " << player.score << " | HP: " << max(player.HP, 0) << "  \n";
+
+        cout << "Level " << level << " [";
+        for (int i = 0; i < level; i++) cout << "=";
+        for (int i = level; i < 10; i++) cout << "-";
+        cout << "] Level 10     \n";  // Extra spaces prevent leftover characters
+
+
 
         if (_kbhit()) {
             char input = _getch();
