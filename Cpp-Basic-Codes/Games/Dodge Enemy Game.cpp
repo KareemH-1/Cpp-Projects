@@ -173,12 +173,12 @@ int getLevel(int score) {
     return 1;
 }
 
-void displayWinScreen() {
+void displayWinScreen(int score) {
     system("cls");
     cout << "===========================" << endl;
-    cout << "        YOU WIN!           " << endl;
+    cout << "         YOU WIN!           " << endl;
     cout << "===========================" << endl;
-    cout << "Final Score: 1000" << endl;
+    cout << "Final Score: " << score << endl;
     exit(0);
 }
 
@@ -193,7 +193,7 @@ int main() {
         int level = getLevel(player.score);
 
         if (level == 10) {
-            displayWinScreen();
+            displayWinScreen(player.score);
         }
 
         if (frameCounter % (7 - level / 2) == 0) {
