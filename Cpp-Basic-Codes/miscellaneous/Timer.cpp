@@ -26,10 +26,10 @@ int main() {
 				
 
 				cout << hours << " : " << minutes << " : " << dispSeconds << endl;
-				this_thread::sleep_for(chrono::seconds(1));
-				seconds++;
-				dispSeconds++;
-				if (seconds % 60 == 0) {
+				this_thread::sleep_for(chrono::seconds(1)); //sleep for 1 second
+				seconds++; //after 1 second of sleeping , increment the seconds variable
+				dispSeconds++; // increment the displaying Seconds variable
+				if (seconds % 60 == 0) { //if condition to check if seconds are divisible by 60 and if they are then increment minutes and readdress disseconds to 0
 					minutes++;
 					dispSeconds = 0;
 				}
@@ -38,7 +38,7 @@ int main() {
 					minutes = 0;
 				}
 				
-				system("cls");
+				system("cls"); //clear screen everytime
 			}
 		}
 		
