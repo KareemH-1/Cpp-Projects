@@ -24,7 +24,6 @@ int main() {
         system("cls");
 
         int seconds = 0, minutes = 0, hours = 0;
-        int dispSeconds = 0;
         bool paused = false;
 
         for (;;) {
@@ -38,7 +37,7 @@ int main() {
             if (paused) { 
                 cout << "\nPaused. Press 'C' to continue..." << endl;
             } else {
-                cout <<endl<< hours << " : " << minutes << " : " << dispSeconds << endl;
+                cout << hours << " : " << minutes << " : " << seconds << endl;
             }
 
             if (_kbhit()) { // Check if a key is pressed
@@ -59,16 +58,17 @@ int main() {
             if (!paused) { // Run the timer only when it's not paused
                 this_thread::sleep_for(chrono::seconds(1)); // Sleep for 1 second
                 seconds++; // After 1 second of sleeping, increment the seconds variable
-                dispSeconds++; // Increment the displaying Seconds variable
 
-                if (seconds % 60 == 0) { // If seconds are divisible by 60, increment minutes and reset dispSeconds
+                if (seconds == 60) { // If seconds reach 60, increment minutes and reset seconds
+                    seconds = 0;
                     minutes++;
-                    dispSeconds = 0;
                 }
-                if (minutes % 60 == 0 && minutes != 0) { // If minutes are divisible by 60, increment hours and reset minutes
-                    hours++;
+                if (minutes == 60) { // If minutes reach 60, increment hours and reset minutes
                     minutes = 0;
+                    hours++;
                 }
+            } else {
+                this_thread::sleep_for(chrono::milliseconds(100)); // Reduce CPU usage when paused
             }
         }
     } 
