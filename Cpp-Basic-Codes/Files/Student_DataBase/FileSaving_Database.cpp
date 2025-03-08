@@ -71,17 +71,83 @@ void addStudent(string &file_path) {
     cout << "Student added successfully!\n";
 }
 
+void sortStudents(int option) {
+    for (int i = 0; i < students.size() - 1; i++) {
+        for (int j = 0; j < students.size() - i - 1; j++) {
+            bool shouldSwap = false;
+            if (option == 1 && students[j].gpa < students[j + 1].gpa) shouldSwap = true;
+            else if (option == 2 && students[j].id > students[j + 1].id) shouldSwap = true;
+            else if (option == 3 && students[j].id < students[j + 1].id) shouldSwap = true;
+            else if (option == 4 && students[j].name > students[j + 1].name) shouldSwap = true;
+            else if (option == 5 && students[j].year > students[j + 1].year) shouldSwap = true;
+            if (shouldSwap) {
+                Student temp = students[j];
+                students[j] = students[j + 1];
+                students[j + 1] = temp;
+            }
+        }
+    }
+}
+
 void displayStudents() {
     if (students.empty()) {
         cout << "No students available.\n";
         return;
     }
-    cout << "\nStudents:" << endl << "--------------------------" <<endl;
+    
+    int choice;
+    cout << "\nDisplay Options:\n";
+    cout << "1. Greatest GPA\n";
+    cout << "2. ID (Ascending)\n";
+    cout << "3. ID (Descending)\n";
+    cout << "4. Name (Alphabetically)\n";
+    cout << "5. Year\n";
+    cout << "6. Search by Course\n";
+    cout << "7. Search by Year\n";
+    cout << "8. Search by Name\n";
+    cout << "Enter your choice: ";
+    cin >> choice;
+    cin.ignore();
+    
+    if (choice >= 1 && choice <= 5) {
+        sortStudents(choice);
+    } else if (choice == 6 || choice == 7 || choice == 8) {
+        string search;
+        cout << "Enter search term: ";
+        getline(cin, search);
+        int count = 0;
+        for (int i = 0; i < students.size(); i++) {
+            bool found = false;
+            for (int j = 0; j < students[i].courses.size(); j++) {
+                if (students[i].courses[j] == search[0]) {
+                    found = true;
+                    for (int k = 1; k < search.size(); k++) {
+                        if (j + k >= students[i].courses.size() || students[i].courses[j + k] != search[k]) {
+                            found = false;
+                            break;
+                        }
+                    }
+                    if (found) break;
+                }
+            }
+            if ((choice == 6 && found) ||
+                (choice == 7 && students[i].year == search) ||
+                (choice == 8 && students[i].name == search)) {
+                cout << students[i].name << " | " << students[i].id << " | " << students[i].year << " | " << students[i].gpa << " | " << students[i].courses << endl;
+                count++;
+            }
+            if(!found){
+                cout << "No students found.\n";
+            }
+        }
+        cout << "Total found: " << count << "\n";
+        return;
+    }
+    cout << "\nStudents:\n--------------------------\n";
     for (int i = 0; i < students.size(); i++) {
         cout << students[i].name << " | " << students[i].id << " | " << students[i].year << " | " << students[i].gpa << " | " << students[i].courses << endl;
     }
 }
-
 
 void removeStudent(string& file_path) {
     string id;
@@ -111,7 +177,7 @@ int main() {
 
     int choice = -1;
     while (choice != 0) {
-        cout << "\nMenu:\n------\n0. Exit\n1. Add a student\n2. Display all students (sorted by GPA)\n3. Remove a student\nEnter your choice: ";
+        cout << "\nMenu:\n------\n0. Exit\n1. Add a student\n2. Display students\n3. Remove a student\nEnter your choice: ";
         cin >> choice;
         switch (choice) {
         case 0: cout << "Goodbye!\n"; break;
