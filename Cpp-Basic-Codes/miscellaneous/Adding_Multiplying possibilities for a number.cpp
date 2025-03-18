@@ -43,10 +43,10 @@ int main() {
 	cout << "Enter choice (1 for sum and 2 for product): ";
 	cin >> choice;
 
-	if(choice == "sum"|| choice == "Sum" || choice == "1" || choice == "SUM" || choice == "s" || choice == "S") {
+	if(choice == "sum"|| choice == "Sum" || choice == "1" || choice == "SUM" || choice == "s" || choice == "S" || choice =="su") {
 		sum(k);
 	}
-	else if(choice == "product" || choice == "Product" ||choice == "2" || choice == "PRODUCT" || choice == "p" || choice == "P") {
+	else if(choice == "product" || choice == "Product" ||choice == "2" || choice == "PRODUCT" || choice == "p" || choice == "P" || choice =="pr") {
 		product(k);
 	}
 	else{
