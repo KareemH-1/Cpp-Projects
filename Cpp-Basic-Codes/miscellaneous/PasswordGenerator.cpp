@@ -7,13 +7,17 @@ int main(){
     cin>> length;
 
     string *password = new string[length];
+    char symbols[]= {'!','@','#','$','%','&','*'};
     for(int i=0; i<length; i++){
-        int numOrChar = rand() % 2;
-        if(numOrChar == 0){
+        int numOrCharOrSymbol = rand() % 3;
+        if(numOrCharOrSymbol == 0){
             password[i] = char(rand() % 26 + 'a');
         }
-        else{
+        else if(numOrCharOrSymbol == 1){
             password[i] = char(rand() % 10 + '0');
+        }
+        else{
+            password[i] = symbols[rand() % 7];
         }
     }
     cout << "The generated password is: " << *password;
