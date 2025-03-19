@@ -20,6 +20,9 @@ int main(){
             password[i] = symbols[rand() % 7];
         }
     }
-    cout << "The generated password is: " << *password;
+    cout << "The generated password is: ";
+    for(int i=0; i<length; i++){
+        cout << password[i];
+    }
     delete[]password;
 }
