@@ -6,7 +6,7 @@ int main(){
     cout << "Enter the length of the password: ";
     cin>> length;
 
-    string *password = new string[length];
+    char *password = new char[length];
     char symbols[]= {'!','@','#','$','%','&','*'};
     for(int i=0; i<length; i++){
         int numOrCharOrSymbol = rand() % 3;
