@@ -25,7 +25,7 @@ void guessNum(int seq, int &ctgood) {
 
 int main() {
     // Define the sequences used in the game
-    int seq[38][5] = {
+    int seq[42][5] = {
     {1, 1, 1, 1, 1},           // 1. Sequence of ones
     {0, 5, 10, 15, 20},        // 2. Arithmetic sequence (+5)
     {3, 6, 9, 12, 15},         // 3. Multiples of 3
@@ -63,8 +63,12 @@ int main() {
     {10, 50, 100, 200, 400},   // 35. Increasing powers of 2 with offsets
     {2, 6, 12, 20, 30},        // 36. Quadratic pattern (n²)
     {2, 4, 16, 256, 65536},    // 37. Exponential (n^n)
-    {16, 8, 4 , 2 , 1}         //38. binomial numbers (2^n) where n starts with 0 from left
-};
+    {16, 8, 4 , 2 , 1},        // 38. binomial numbers (2^n) where n starts with 0 from left
+    {1, 2, 4, 8, 16},  // 39. Powers of 2 (2^n)
+    {1, 3, 6, 10, 15}, // 40. Triangle numbers (n(n+1)/2)
+    {1, 4, 9, 16, 25}, // 41. Square numbers (n²)
+    { 9, 12, 15, 18, 21}, // 42. Multiples of 3
+    };
 
 
     int numrounds = 38;  // Total rounds in the game
