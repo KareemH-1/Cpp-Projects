@@ -699,6 +699,126 @@ namespace DLL{
 
         };
 
+    }
+
+    namespace hashTable{
+        class Node {
+            public:
+                string key;
+                int value;
+                Node* next;
+        
+                Node(string key, int value) {
+                    this->key = key;
+                    this->value = value;
+                    next = nullptr;
+                }
+                Node(){
+                    key = "";
+                    value = 0;
+                    next = nullptr;
+                }
+        };
+
+        class HashTable {
+            private:
+                int SIZE;
+                Node** dataMap;
+        
+                int hash(string key) {
+                    int hash = 0;
+                    for (int i = 0; i < key.length(); i++) {
+                        int asciiValue = int(key[i]);
+                        hash = (hash + asciiValue *  23) % SIZE;
+                    }
+                    return hash;
+                }
+            
+            public:
+                HashTable() {
+                    SIZE = 7;
+                    dataMap = new Node*[SIZE];
+                    for(int i = 0; i < SIZE; i++) {
+                        dataMap[i] = nullptr;
+                    }
+                }
+
+                HashTable(int size) {
+                    this->SIZE = size;
+                    dataMap = new Node*[size];
+                    for(int i = 0; i < SIZE; i++) {
+                        dataMap[i] = nullptr;
+                    }
+                }
+                ~HashTable() {
+                    for(int i = 0; i < SIZE; i++) {
+                        Node* head = dataMap[i];
+                        Node* temp = head;
+                        while (head) {
+                            head = head->next;
+                            delete temp;
+                            temp = head;
+                        }
+                    }
+                    delete[] dataMap;
+                }
+            
+                void printTable() {
+                    for(int i = 0; i < SIZE; i++) {
+                        cout << "Index " << i << ": ";
+                        if(dataMap[i]) {
+                            cout << "Contains => ";
+                            Node* temp = dataMap[i];
+                            while (temp) {
+                                cout << "{" << temp->key << ", " << temp->value << "}";
+                                temp = temp->next;
+                                if (temp) cout << ", ";
+                            }
+                            cout << endl;
+                        } else {
+                            cout << "Empty" << endl;
+                        }
+                    }
+                }
+
+                void set(string key, int value) {
+                    int index = hash(key);
+                    Node* newNode = new Node(key, value);
+                    if (dataMap[index] == nullptr) {
+                        dataMap[index] = newNode;
+                    } else {
+                        Node* temp = dataMap[index];
+                        while (temp->next != nullptr) {
+                            temp = temp->next;
+                        }
+                        temp->next = newNode;
+                    }
+                }
+            
+                int get(string key) {
+                    int index = hash(key);
+                    Node* temp = dataMap[index];
+                    while (temp != nullptr) {
+                        if (temp->key == key) return temp->value;
+                        temp = temp->next;
+                    }
+                
+                }
+                vector<string>keys(){
+                    vector<string> allkeys;
+                    
+                    for(int i = 0; i < SIZE; i++){
+                        Node* temp = dataMap[i];
+
+                        while(temp != nullptr){
+                            allkeys.push_back(temp->key);
+                            temp = temp->next;
+                        }
+                    }
+                    return allkeys;
+                }
+                    
+        };
 
     }
 }
