@@ -9,7 +9,7 @@ void fast_io() {
 #endif
 }
 
-namespace DSA {
+namespace DS {
     namespace LL{
         class Node {
         public:
@@ -623,12 +623,12 @@ namespace DLL{
     }
     namespace BST{
 
-        class Node { 
-            public: 
+        class Node {
+            public:
                 int value;
                 Node* left;
                 Node* right;
-        
+
                 Node(int value) {
                     this->value = value;
                     left = nullptr;
@@ -640,23 +640,23 @@ namespace DLL{
         class BinarySearchTree {
             private:
                 Node* root;
-        
+
             public:
                 BinarySearchTree() { root = nullptr; }
-        
+
                 void destroy(Node* currentNode) {
                     if (currentNode == nullptr) return;
                     if (currentNode->left) destroy(currentNode->left);
                     if (currentNode->right) destroy(currentNode->right);
                     delete currentNode;
                 }
-            
+
                 ~BinarySearchTree() { destroy(root); }
-            
+
                 Node* getRoot() {
                     return root;
-                } 
-            
+                }
+
                 bool insert(int value) {
                     Node* newNode = new Node(value);
                     if (root == nullptr) {
@@ -695,7 +695,7 @@ namespace DLL{
                         else return true;
                     }
                     return false;
-                }       
+                }
 
         };
 
@@ -707,7 +707,7 @@ namespace DLL{
                 string key;
                 int value;
                 Node* next;
-        
+
                 Node(string key, int value) {
                     this->key = key;
                     this->value = value;
@@ -724,7 +724,7 @@ namespace DLL{
             private:
                 int SIZE;
                 Node** dataMap;
-        
+
                 int hash(string key) {
                     int hash = 0;
                     for (int i = 0; i < key.length(); i++) {
@@ -733,7 +733,7 @@ namespace DLL{
                     }
                     return hash;
                 }
-            
+
             public:
                 HashTable() {
                     SIZE = 7;
@@ -762,7 +762,7 @@ namespace DLL{
                     }
                     delete[] dataMap;
                 }
-            
+
                 void printTable() {
                     for(int i = 0; i < SIZE; i++) {
                         cout << "Index " << i << ": ";
@@ -794,7 +794,7 @@ namespace DLL{
                         temp->next = newNode;
                     }
                 }
-            
+
                 int get(string key) {
                     int index = hash(key);
                     Node* temp = dataMap[index];
@@ -802,11 +802,11 @@ namespace DLL{
                         if (temp->key == key) return temp->value;
                         temp = temp->next;
                     }
-                
+
                 }
                 vector<string>keys(){
                     vector<string> allkeys;
-                    
+
                     for(int i = 0; i < SIZE; i++){
                         Node* temp = dataMap[i];
 
@@ -817,8 +817,371 @@ namespace DLL{
                     }
                     return allkeys;
                 }
-                    
+
         };
 
     }
+
+    namespace Graph {
+
+        class Graph {
+            private:
+                unordered_map<string, unordered_set<string> > adjList;
+
+            public:
+                void printGraph() {
+                    unordered_map<string, unordered_set<string>>::iterator kvPair = adjList.begin();
+                    while (kvPair != adjList.end()) {
+                        cout << kvPair->first << ": [";
+                        unordered_set<string>::iterator edge = kvPair->second.begin();
+                        bool first = true;
+                        while (edge != kvPair->second.end()) {
+                            if (!first) {
+                                cout << ", ";
+                            }
+                            cout << *edge;
+                            edge++;
+                            first = false;
+                        }
+                        cout << "]" << endl;
+                        kvPair++;
+                    }
+                }
+
+                bool addVertex(string vertex) {
+                    if (adjList.count(vertex) == 0) {
+                        adjList[vertex];
+                        return true;
+                    }
+                    return false;
+                }
+
+                bool addEdge(string vertex1, string vertex2) {
+                    if (adjList.count(vertex1) != 0 && adjList.count(vertex2) != 0) {
+                        adjList.at(vertex1).insert(vertex2);
+                        adjList.at(vertex2).insert(vertex1);
+                        return true;
+                    }
+                    return false;
+                }
+
+
+        bool removeVertex(string vertex) {
+            if (adjList.count(vertex) == 0) {
+                return false;
+            }
+
+            for (string neighbor : adjList[vertex]) {
+                adjList[neighbor].erase(vertex);
+            }
+
+            adjList.erase(vertex);
+
+            return true;
+        }
+
+                bool removeEdge(string vertex1, string vertex2) {
+                    if (adjList.count(vertex1) != 0 && adjList.count(vertex2) != 0) {
+                        adjList.at(vertex1).erase(vertex2);
+                        adjList.at(vertex2).erase(vertex1);
+                        return true;
+                    }
+                    return false;
+                }
+
+        };
+    }
+
+    namespace  heap {
+
+        class Heap {
+            private:
+                vector<int> heap;
+
+                int leftChild(int index) {
+                    return 2 * index + 1;
+                }
+
+                int rightChild(int index) {
+                    return 2 * index + 2;
+                }
+
+                int parent(int index) {
+                    return (index - 1) / 2;
+                }
+
+                void swap(int index1, int index2) {
+                    int temp = heap[index1];
+                    heap[index1] = heap[index2];
+                    heap[index2] = temp;
+                }
+
+
+
+            public:
+                void printHeap() {
+                    cout << "\n[";
+                    for (size_t i = 0; i < heap.size(); i++) {
+                        cout << heap[i];
+                        if (i < heap.size() - 1) {
+                            cout << ", ";
+                        }
+                    }
+                    cout << "]" << endl;
+                }
+
+                const vector<int>& getHeap() const {
+                    return heap;
+                }
+
+                void insert(int value) {
+                    heap.push_back(value);
+                    int current = heap.size() - 1;
+
+                    while (current > 0 && heap[current] > heap[parent(current)]) {
+                        swap(current, parent(current));
+                        current = parent(current);
+                    }
+                }
+            void sinkDown(int index) {
+                    int maxIndex = index;
+                    while (true) {
+                        int leftIndex = leftChild(index);
+                        int rightIndex = rightChild(index);
+
+                        if (leftIndex < heap.size() && heap[leftIndex] > heap[maxIndex]) {
+                            maxIndex = leftIndex;
+                        }
+
+                        if (rightIndex < heap.size() && heap[rightIndex] > heap[maxIndex]) {
+                            maxIndex = rightIndex;
+                        }
+
+                        if (maxIndex != index) {
+                            swap(index, maxIndex);
+                            index = maxIndex;
+                        } else {
+                            return;
+                        }
+                    }
+                }
+
+
+
+                int remove() {
+                    if (heap.empty()) {
+                        return INT_MIN;
+                    }
+
+                    int maxValue = heap.front();
+
+                    if (heap.size() == 1) {
+                        heap.pop_back();
+                    } else {
+                        heap[0] = heap.back();
+                        heap.pop_back();
+                        sinkDown(0);
+                    }
+
+                    return maxValue;
+                }
+
+        };
+
+
+              class MinHeap {
+              private:
+                  vector<int> heap;
+
+                  int leftChild(int index) {
+                      return 2 * index + 1;
+                  }
+
+                  int rightChild(int index) {
+                      return 2 * index + 2;
+                  }
+
+                  int parent(int index) {
+                      return (index - 1) / 2;
+                  }
+
+                  void swap(int index1, int index2) {
+                      int temp = heap[index1];
+                      heap[index1] = heap[index2];
+                      heap[index2] = temp;
+                  }
+
+              public:
+                  void printHeap() {
+                      cout << "\n[";
+                      for (size_t i = 0; i < heap.size(); i++) {
+                          cout << heap[i];
+                          if (i < heap.size() - 1) {
+                              cout << ", ";
+                          }
+                      }
+                      cout << "]" << endl;
+                  }
+
+                  const vector<int>& getHeap() const {
+                      return heap;
+                  }
+
+                  void insert(int value) {
+                      heap.push_back(value);
+                      int current = heap.size() - 1;
+
+                      while (current > 0 && heap[current] < heap[parent(current)]) {
+                          swap(current, parent(current));
+                          current = parent(current);
+                      }
+                  }
+                  void sinkDown(int index) {
+                      int minIndex = index;
+                      while (true) {
+                          int leftIndex = leftChild(index);
+                          int rightIndex = rightChild(index);
+
+                          if (leftIndex < heap.size() && heap[leftIndex] < heap[minIndex]) {
+                              minIndex = leftIndex;
+                          }
+
+                          if (rightIndex < heap.size() && heap[rightIndex] < heap[minIndex]) {
+                              minIndex = rightIndex;
+                          }
+
+                          if (minIndex != index) {
+                              swap(index, minIndex);
+                              index = minIndex;
+                          } else {
+                              return;
+                          }
+                      }
+                  }
+
+
+                  int remove() {
+                      if (heap.empty()) {
+                          return INT_MIN;
+                      }
+
+                      int minValue = heap.front();
+
+                      if (heap.size() == 1) {
+                          heap.pop_back();
+                      } else {
+                          heap[0] = heap.back();
+                          heap.pop_back();
+                          sinkDown(0);
+                      }
+
+                      return minValue;
+                  }
+              };
+    }
+}
+
+
+namespace algorithms{
+    //Time: Best: O(n) | Average: O(n^2) | Worst: O(n^2)
+    //space 0(1)
+    void bubbleSort(int array[], int size) {
+         for(int i = size-1 ; i> 0 ; i--){
+             for(int j = 0 ; j< i ; j++){
+                 if(array[j] > array[j+1]){
+                     int temp = array[j];
+                     array[j] = array[j+1];
+                     array[j+1] = temp;
+                 }
+             }
+         }
+    }
+
+    //Time: Best: O(n^2) | Average: O(n^2) | Worst: O(n^2)
+    //space 0(1)
+    void selectionSort(int array[], int size) {
+        for(int i =0 ; i< size ; i++){
+            int  min = i;
+            for(int j = i+1 ; j< size ; j++){
+                if(array[j] < array[min]){
+                    min = j;
+                }
+            }
+            if(i != min){
+                int temp = array[min];
+                array[min] = array[i];
+                array[i] = temp;
+            }
+        }
+    }
+
+    //Time: Best: O(n) | Average: O(n^2) | Worst: O(n^2)
+    //space 0(1)
+    void insertSort(int array[], int size) {
+        for (int i = 1 ;i< size ; i++) {
+            int temp = array[i];
+            int j = i-1;
+            while (j >= 0 && temp < array[j]) {
+                array[j+1] = array[j];
+                array[j] = temp;
+                j--;
+            }
+        }
+    }
+
+
+    //Time: Best: O(n log n) | Average: O(n log n) | Worst: O(n log n)
+    //space 0(n)
+    namespace mergeSort {
+        void merge(int array[] , int leftIndex , int midIndex , int rightIndex) {
+            int leftArraySize = midIndex - leftIndex + 1;
+            int rightArraySize = rightIndex - midIndex;
+            int *leftArray = new int[leftArraySize];
+            int *rightArray = new int[rightArraySize];
+
+            for (int i = 0; i < leftArraySize; i++) {
+                leftArray[i] = array[leftIndex + i];
+            }
+            for (int i = 0; i < rightArraySize; i++) {
+                rightArray[i] = array[midIndex + i + 1];
+            }
+            int index = leftIndex;
+            int i =0 , j =0;
+
+            while (i < leftArraySize && j < rightArraySize) {
+                if (leftArray[i] <= rightArray[j]) {
+                    array[index] = leftArray[i];
+                    index++;
+                    i++;
+                }
+                else {
+                    array[index] = rightArray[j];
+                    index++;
+                    j++;
+                }
+            }
+            while (i < leftArraySize) {
+                array[index] = leftArray[i];
+                index++;
+                i++;
+            }
+            while (j < rightArraySize) {
+                array[index] = rightArray[j];
+                index++;
+                j++;
+            }
+
+            delete [] leftArray;
+            delete [] rightArray;
+        }
+
+        void mergeSort(int array[], int leftIndex , int rightIndex) {
+            if (leftIndex >= rightIndex) return;
+            int midIndex = leftIndex; + (rightIndex - leftIndex) /2;
+            mergeSort(array, leftIndex, midIndex);
+            mergeSort(array, midIndex + 1, rightIndex);
+            merge(array , leftIndex , midIndex , rightIndex);
+        }
+    }
+
 }
