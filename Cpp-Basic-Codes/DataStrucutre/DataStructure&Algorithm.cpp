@@ -1184,4 +1184,88 @@ namespace algorithms{
         }
     }
 
+
+
+    //Time: Best: O(n log n) | Average: O(n log n) | Worst: O(n^2)
+    //space: Average: 0(log n) | Worst: O(n)
+    namespace QuickSort{
+
+        void swap(int array[] , int firstIndex , int secondIndex){
+            int temp = array[firstIndex];
+            array[firstIndex] = array[secondIndex];
+            array[secondIndex] = temp;
+        }
+
+        int pivot(int array[] , int pivotIndex , int endIndex){
+            int swapIndex = pivotIndex;
+            for (int i = pivotIndex+1 ; i <= endIndex ; i++) {
+                if (array[i] < array[pivotIndex]) {
+                    swapIndex++;
+                    swap(array, swapIndex , i);
+
+                }
+            }
+            swap(array , pivotIndex , swapIndex);
+            return swapIndex;
+        }
+
+        void QuickSort(int array[] , int leftIndex , int rightIndex) {
+            if (leftIndex>=rightIndex) return;
+
+            int pivotIndex = pivot(array , leftIndex , rightIndex);
+            QuickSort(array , leftIndex, pivotIndex-1);
+            QuickSort(array, pivotIndex+1, rightIndex);
+
+        }
+
+    }
+
+
+
+}
+
+namespace Memoization {
+
+    namespace Fibonacci {
+        //Time: 0(2^n)
+        // when n = 41, function is called over 500 million times
+        int InEffecientFibonacci(int n) {
+            if (n == 0 || n == 1) {
+                return n;
+            }
+            return InEffecientFibonacci(n-1) + InEffecientFibonacci(n-2);
+        }
+
+        //Time: O(n) simplified from O(2n-1)
+        //when n = 41, function is called 81 times
+        namespace EffecientFibonacci {
+            vector<int>memo(100, -1);
+
+            int Fibonacci(int n) {
+                if (memo[n] != -1) return memo[n];
+
+                if (n == 0 || n == 1) {
+                    return n;
+                }
+                memo[n] = Fibonacci(n-1) + Fibonacci(n-2);
+                return memo[n];
+            }
+        }
+
+
+    }
+}
+
+//Time: O(n-1) ,simplified to O(n)
+//when n = 41, function is called 40 times
+namespace EffecientFibonacciWithoutMemoization{
+    int Fibonacci(int n) {
+        vector<int> fiblist;
+        fiblist.push_back(0);
+        fiblist.push_back(1);
+        for (int i = 2 ; i<= n ; i++) {
+            fiblist[i] = fiblist[i-1] + fiblist[i-2];
+        }
+        return fiblist[n-1];
+    }
 }
